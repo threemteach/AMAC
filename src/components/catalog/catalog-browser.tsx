@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useId, useRef, useState } from "react";
 import type { getCatalog } from "../../content/catalog";
-import type { Category } from "../../content/catalog-routes";
+import { productPath, type Category } from "../../content/catalog-routes";
 import type { Locale } from "../../content/locale";
 import { searchCatalog } from "./catalog-search";
 import styles from "./catalog.module.css";
@@ -194,9 +195,9 @@ export function CatalogBrowser({
                   <h3>{product.title}</h3>
                   <p>{categoryName}</p>
                 </div>
-                <button type="button" disabled className={styles.productAction}>
+                <Link href={productPath(locale, product.id)} className={styles.productAction} aria-label={copy.explore + ": " + product.title}>
                   {copy.explore} <span aria-hidden="true">{arrow}</span>
-                </button>
+                </Link>
               </li>
             );
           })}

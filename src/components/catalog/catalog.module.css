@@ -343,3 +343,20 @@
 .suggestions li[aria-selected="true"] {
   background: #e2ebde;
 }
+
+a.productAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+a.productAction:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a.productAction:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -5px;
+}

@@ -14,3 +14,12 @@ export function categoryPath(locale: Locale, category: Category) {
 export function readCategory(value: string | string[] | undefined): Category | "all" {
   return categoryIds.find((category) => category === value) ?? "all";
 }
+
+export const productIds = ["strawberries", "broccoli", "mango", "green-beans"] as const;
+export type ProductId = (typeof productIds)[number];
+
+export function productPath(locale: Locale, product: ProductId) {
+  return productsPath(locale) + "/" + product;
+}
+
+export type CatalogView = "home" | "products" | ProductId;

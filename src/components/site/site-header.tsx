@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productsPath } from "../../content/catalog-routes";
+import { productsPath, type CatalogView } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import { homePaths, localeLabels, type Locale } from "../../content/locale";
 import { LanguagePicker } from "./language-picker";
 import { MobileMenu } from "./mobile-menu";
 import styles from "./site-header.module.css";
 
-export function SiteHeader({ locale, view = "home" }: { locale: Locale; view?: "home" | "products" }) {
+export function SiteHeader({ locale, view = "home" }: { locale: Locale; view?: CatalogView }) {
   const { announcement, navigation, quoteLabel } = getHomeContent(locale).header;
   const [homeLabel, productsLabel, ...upcomingLinks] = navigation;
   const labels = localeLabels[locale];
@@ -15,7 +15,7 @@ export function SiteHeader({ locale, view = "home" }: { locale: Locale; view?: "
     <nav className={styles.navigation} aria-label={labels.navigation}>
       <ul>
         <li><Link href={homePaths[locale]} aria-current={view === "home" ? "page" : undefined}>{homeLabel}</Link></li>
-        <li><Link href={productsPath(locale)} aria-current={view === "products" ? "page" : undefined}>{productsLabel}</Link></li>
+        <li><Link href={productsPath(locale)} aria-current={view === "products" ? "page" : view !== "home" ? "location" : undefined}>{productsLabel}</Link></li>
         {upcomingLinks.map((label) => (
           <li key={label}><span aria-disabled="true">{label}</span></li>
         ))}
@@ -30,7 +30,7 @@ export function SiteHeader({ locale, view = "home" }: { locale: Locale; view?: "
   );
 
   return (
-    <header className={styles.header} data-view={view}>
+    <header className={styles.header} data-view={view === "home" ? "home" : "products"}>
       <p className={styles.announcement}>{announcement}</p>
       <div className={styles.navigationBar}>
         <MobileMenu locale={locale}>{links}{quote}</MobileMenu>

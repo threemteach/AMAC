@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productsPath } from "../../content/catalog-routes";
+import { productsPath, productIds, productPath } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
@@ -37,9 +37,9 @@ export function FeaturedHarvest({ locale }: { locale: Locale }) {
               <p className={styles.category}>{product.category}</p>
               <h3 className={styles.name}>{product.name}</h3>
               <p className={styles.description}>{product.description}</p>
-              <span className={styles.productAction} aria-disabled="true">
+              <Link className={styles.productAction} href={productPath(locale, productIds[index])}>
                 {featuredHarvest.productAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
-              </span>
+              </Link>
             </div>
           </li>
         ))}

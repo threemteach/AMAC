@@ -1,11 +1,11 @@
 import type { StaticImageData } from "next/image";
 import { getHomeContent } from "./home-localized";
 import { catalogCopy } from "./catalog-copy";
-import { categoryIds, type Category } from "./catalog-routes";
+import { categoryIds, type Category, type ProductId } from "./catalog-routes";
 import { languageNames, type Locale } from "./locale";
 
 type CatalogProduct = {
-  id: string;
+  id: ProductId;
   category: Category;
   image: string | StaticImageData;
   keywords?: string[];

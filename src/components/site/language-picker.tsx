@@ -1,13 +1,18 @@
 "use client";
 
 import { useRef } from "react";
-import { productsPath } from "../../content/catalog-routes";
+import { productsPath, productPath, type CatalogView } from "../../content/catalog-routes";
 import { homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
 import styles from "./site-header.module.css";
 
-export function LanguagePicker({ locale, view }: { locale: Locale; view: "home" | "products" }) {
+export function LanguagePicker({ locale, view }: { locale: Locale; view: CatalogView }) {
   const picker = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
+  function link(language: Locale) {
+    if (view === "home") return homePaths[language];
+    if (view === "products") return productsPath(language);
+    return productPath(language, view);
+  }
 
   return (
     <details
@@ -30,7 +35,7 @@ export function LanguagePicker({ locale, view }: { locale: Locale; view: "home" 
         {(Object.keys(languageNames) as Locale[]).map((language) => (
           <li key={language}>
             <a
-              href={view === "products" ? productsPath(language) : homePaths[language]}
+              href={link(language)}
               hrefLang={language}
               lang={language}
               dir={language === "ar" ? "rtl" : "ltr"}

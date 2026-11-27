@@ -51,3 +51,7 @@ Discuss your shipment and Talk to our team can be linked when their contact dest
 The catalog at `/products` and its localized equivalents uses `src/content/catalog.ts` for categories and products, and `src/content/catalog-copy.ts` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
 
 The catalog vegetable photographs are illustrative CC0 assets. [Cut Broccoli](https://commons.wikimedia.org/wiki/File:Cut_Broccoli.jpg) is credited to Alabama Extension / Margaret Barse, and [Green beans in a pile](https://commons.wikimedia.org/wiki/File:Green_beans_in_a_pile.JPG) is by Jeffery Martin. Local copies were resized and converted to WebP.
+
+## Product details
+
+All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Product formats and the enquiry text are configured in `src/content/product-details.ts`. The strawberry example sizes and detail labels live in `src/content/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
