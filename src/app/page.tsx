@@ -1,3 +1,4 @@
+import { ConsideredJourney } from "../components/home/considered-journey";
 import { FeaturedHarvest } from "../components/home/featured-harvest";
 import { FieldsIntro } from "../components/home/fields-intro";
 import { HomeHero } from "../components/home/home-hero";
@@ -17,6 +18,7 @@ export default function HomePage() {
         <FeaturedHarvest />
         <QualityConfidence />
         <OurStory />
+        <ConsideredJourney />
       </main>
     </>
   );

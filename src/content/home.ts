@@ -126,4 +126,36 @@ export const homeContent = {
     ],
     actionLabel: "See our story",
   },
+  journey: {
+    eyebrow: "From field to destination",
+    heading: ["A considered journey,", "from the very start."],
+    description:
+      "Every order begins with a clear conversation. Here are the stages involved in bringing the harvest closer to your market.",
+    steps: [
+      {
+        stage: "Source",
+        title: "From the harvest",
+        description: "Produce is selected with attention to the requirements of each product.",
+        icon: { src: "/images/journey/source.svg", width: 128, height: 129 },
+      },
+      {
+        stage: "Prepare",
+        title: "Careful preparation",
+        description: "Products are prepared and handled with quality in mind.",
+        icon: { src: "/images/journey/prepare.svg", width: 138, height: 138 },
+      },
+      {
+        stage: "Freeze",
+        title: "Ready to travel",
+        description: "Frozen produce is prepared for storage and onward transport.",
+        icon: { src: "/images/journey/freeze.svg", width: 136, height: 136 },
+      },
+      {
+        stage: "Deliver",
+        title: "Made for your market",
+        description: "We discuss specifications, packing and delivery requirements with you.",
+        icon: { src: "/images/journey/deliver.svg", width: 125, height: 139 },
+      },
+    ],
+  },
 };
