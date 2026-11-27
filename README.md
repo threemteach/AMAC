@@ -1,4 +1,4 @@
-# AMAC Group
+# AMAC
 
 Next.js App Router project for AMAC Group’s public site. The current review covers the home page header, hero, crossed ribbons, “From our fields to your market” introduction, the Fruits and Vegetables collection cards, the featured harvest, Quality & Confidence, and Our Story.
 
