@@ -204,3 +204,22 @@
 .ribbonItem:lang(ar) {
   direction: rtl;
 }
+
+/* Let longer translations extend the photo before placing the ribbons. */
+.hero:is(:lang(fr), :lang(de), :lang(it), :lang(ru), :lang(es)) {
+  --below-photo: clamp(75px, 12.57vw, 181px);
+  --ribbon-top: calc(100% - var(--below-photo) - clamp(14px, 1.53vw, 22px));
+}
+
+.hero:is(:lang(fr), :lang(de), :lang(it), :lang(ru), :lang(es)) .backdrop {
+  inset-block-end: var(--below-photo);
+  height: auto;
+}
+
+.hero:is(:lang(fr), :lang(de), :lang(it), :lang(ru), :lang(es)) .content {
+  padding-bottom: calc(var(--below-photo) + clamp(38px, 6vw, 86px));
+}
+
+.heading:lang(ru) {
+  font-family: var(--font-russian-display);
+}

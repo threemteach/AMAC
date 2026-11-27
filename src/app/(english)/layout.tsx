@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
+import { getHomeMetadata } from "../../content/home-metadata";
 import type { ReactNode } from "react";
 import { Document } from "../document";
 
-export const metadata: Metadata = {
-  title: "AMAC Group | Frozen Fruits & Vegetables",
-  description: "Egyptian frozen fruits and vegetables from AMAC Group, based in Alexandria.",
-  alternates: { languages: { en: "/", ar: "/ar" } },
-};
+export const metadata = getHomeMetadata("en");
 
 export default function Layout({ children }: { children: ReactNode }) {
   return <Document locale="en">{children}</Document>;

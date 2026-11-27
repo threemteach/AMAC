@@ -1,4 +1,5 @@
 import { homeContent as en } from "./home";
+import { getInternationalHome } from "./international-home";
 import type { Locale } from "./locale";
 
 const shippingHeading = ["وسيلة الشحن المناسبة", "لوجهتك."];
@@ -118,5 +119,7 @@ const ar: typeof en = {
 };
 
 export function getHomeContent(locale: Locale) {
-  return locale === "ar" ? ar : en;
+  if (locale === "en") return en;
+  if (locale === "ar") return ar;
+  return getInternationalHome(locale);
 }

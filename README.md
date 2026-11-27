@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000/` for English or `http://localhost:3000/ar` for Arabic. The header lets visitors switch languages. Use `npm run build` for the production build and `npm run typecheck` for TypeScript checks.
+Open `http://localhost:3000/` for English. The language picker also links to Arabic (`/ar`), French (`/fr`), German (`/de`), Italian (`/it`), Russian (`/ru`), and Spanish (`/es`). Use `npm run build` for the production build and `npm run typecheck` for TypeScript checks.
 
 ## Where to make changes
 
@@ -33,11 +33,12 @@ Open `http://localhost:3000/` for English or `http://localhost:3000/ar` for Arab
 | `src/components/home/shipping-routes.tsx` | Road, air, and sea shipping cards with supplied SVGs. |
 | `src/components/home/contact-banner.tsx` | Bottom contact banner and its brand watermark. |
 | `src/content/home.ts` | English home page copy and shared asset references. |
-| `src/content/home-localized.ts` | Arabic home page copy. |
+| `src/content/home-localized.ts` | Arabic home page copy and locale selection. |
+| `src/content/translations/` | French, German, Italian, Russian, and Spanish home page copy. |
 | `src/content/locale.ts` | Language routes and shared accessibility labels. |
 | `public/images/` | The original farm image, AMAC SVG logo, and fields watermark SVG. |
 
-The component CSS modules hold responsive sizing and positioning. `src/app/document.tsx` sets the document language and direction and loads Inter and DM Sans from local package assets. The Arabic layout loads Readex Pro Variable from local package assets. The fields introduction loads Bricolage Grotesque Bold and Myriad Pro Regular from local font files through next/font. On narrow screens, the header opens a left sidebar from the menu button and the farm image crops around its center.
+The component CSS modules hold responsive sizing and positioning. `src/app/document.tsx` sets the document language and direction and loads Inter and DM Sans from local package assets. The Latin locales share the English type stack. Arabic uses Readex Pro Variable. Russian uses Onest Variable for display type and Inter for body and interface text. The fields introduction loads Bricolage Grotesque Bold and Myriad Pro Regular from local font files through next/font. On narrow screens, the header opens a left sidebar from the menu button and the farm image crops around its center.
 
 When the dashboard is implemented, the home content module is the starting point for setting up fields for the announcement, hero text, image, action labels, ribbon labels, and product introduction copy, collection cards, featured products, quality standards, company story copy, and the journey stages. Home, the logo, and Discover the range are active for this review. Discover the range scrolls to the collection cards. The cards and featured harvest actions can be linked once the collection and product destinations are implemented. See our story can be linked once the About us page is implemented.
 

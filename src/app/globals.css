@@ -41,3 +41,18 @@ html[lang="ar"] h3 {
 html[lang="ar"] main p {
   line-height: 1.55;
 }
+
+/* Russian uses Onest for display type and Inter for reading and interface text. */
+html[lang="ru"] {
+  --font-russian-display: "Onest Variable", var(--font-inter);
+  --font-dm-sans: var(--font-inter);
+}
+
+html[lang="ru"] main > section {
+  --font-bricolage: var(--font-russian-display);
+  --font-myriad-pro: var(--font-inter);
+}
+
+html:where([lang="fr"], [lang="de"], [lang="it"], [lang="ru"], [lang="es"]) main {
+  overflow-wrap: anywhere;
+}

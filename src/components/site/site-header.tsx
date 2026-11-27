@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
 import { homePaths, localeLabels, type Locale } from "../../content/locale";
+import { LanguagePicker } from "./language-picker";
 import { MobileMenu } from "./mobile-menu";
 import styles from "./site-header.module.css";
 
@@ -9,7 +10,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const { announcement, navigation, quoteLabel } = getHomeContent(locale).header;
   const [homeLabel, ...upcomingLinks] = navigation;
   const labels = localeLabels[locale];
-  const alternate = locale === "ar" ? "en" : "ar";
   const links = (
     <nav className={styles.navigation} aria-label={labels.navigation}>
       <ul>
@@ -38,9 +38,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </Link>
         <div className={styles.actions}>
           {quote}
-          <a className={styles.language} href={homePaths[alternate]} hrefLang={alternate} lang={alternate}>
-            {alternate === "ar" ? "العربية" : "English"}
-          </a>
+          <LanguagePicker locale={locale} />
         </div>
       </div>
     </header>
