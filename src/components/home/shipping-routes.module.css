@@ -50,57 +50,74 @@
 }
 
 .routes {
+  --route-curve-width: clamp(4px, 0.5vw, 7px);
+  position: relative;
   display: grid;
-  width: min(100%, 1066px);
-  margin: clamp(25px, 2.7vw, 39px) auto 0;
+  width: min(100%, 820px);
+  margin: clamp(25px, 2.4vw, 34px) auto 0;
   padding: 0;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr 0.88fr 1fr;
   align-items: start;
   list-style: none;
 }
 
 .route {
-  --curve-width: clamp(5px, 0.76vw, 11px);
+  --route-radius-y: 24%;
   position: relative;
+  z-index: 2;
   display: flex;
   min-height: 0;
-  padding: clamp(20px, 2.22vw, 32px);
-  aspect-ratio: 356 / 548;
+  padding: clamp(16px, 1.55vw, 22px);
+  aspect-ratio: 300 / 450;
   flex-direction: column;
   align-items: center;
-  border: 2px solid var(--route-ink);
-  border-radius: 50% 50% 36% 36% / 32.5% 32.5% 23% 23%;
+  border: 1px solid var(--route-ink);
+  border-radius: 50% / 25% 25% var(--route-radius-y) var(--route-radius-y);
   background: #cbd2bf;
   color: var(--route-ink);
+  border-bottom-color: transparent;
 }
 
-.route::after {
+.route::after,
+.route[data-route="air"]::before {
   position: absolute;
-  inset: auto calc(var(--curve-width) / -2) -2px;
-  height: 23%;
-  border: var(--curve-width) solid var(--route-ink);
-  border-top: 0;
-  border-radius: 0 0 36% 36% / 0 0 100% 100%;
+  right: calc(var(--route-curve-width) / -2);
+  left: calc(var(--route-curve-width) / -2);
+  height: var(--route-radius-y);
+  border: var(--route-curve-width) solid var(--route-ink);
   pointer-events: none;
   content: "";
 }
 
+.route::after {
+  bottom: calc(var(--route-curve-width) / -2);
+  border-top: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
 .route[data-route="air"] {
-  z-index: 1;
-  margin-top: clamp(152px, 20.6vw, 297px);
+  --route-radius-y: 22%;
+  width: 100%;
+  justify-self: center;
+  margin-top: clamp(125px, 14.5vw, 205px);
   flex-direction: column-reverse;
-  border-radius: 36% 36% 50% 50% / 23% 23% 32.5% 32.5%;
+  border-radius: 50% / var(--route-radius-y) var(--route-radius-y) 23% 23%;
+  border-top-color: transparent;
 }
 
 .route[data-route="air"]::after {
-  top: -3px;
-  bottom: auto;
-  transform: scaleY(-1);
+  display: none;
+}
+
+.route[data-route="air"]::before {
+  top: calc(var(--route-curve-width) / -2);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
 .disc {
   display: flex;
-  width: 100%;
+  width: 86%;
   min-width: 0;
   padding-top: 20%;
   aspect-ratio: 1;
@@ -108,14 +125,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(9px, 1.25vw, 18px);
-  border: 2px solid var(--route-ink);
+  gap: clamp(7px, 0.9vw, 13px);
+  border: 1px solid var(--route-ink);
   border-radius: 50%;
   background: #fdfdfb;
 }
 
 .route[data-route="air"] .disc {
-  padding: 0 0 20%;
+  padding: 0 0 12%;
   flex-direction: column-reverse;
 }
 
@@ -123,14 +140,14 @@
   display: block;
   width: auto;
   max-width: 52%;
-  max-height: clamp(66px, 8vw, 115px);
+  max-height: clamp(48px, 5.3vw, 76px);
   height: auto;
   object-fit: contain;
 }
 
 .title {
   margin: 0;
-  font-size: clamp(22px, 2.23vw, 32px);
+  font-size: clamp(18px, 1.65vw, 24px);
 }
 
 .number {
@@ -138,13 +155,13 @@
   top: -1px;
   left: 50%;
   display: grid;
-  width: clamp(40px, 4.52vw, 65px);
+  width: clamp(32px, 3.2vw, 46px);
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
   background: var(--route-ink);
   color: #fff;
-  font-size: clamp(25px, 3.06vw, 44px);
+  font-size: clamp(20px, 2.15vw, 31px);
   transform: translateX(-50%);
 }
 
@@ -154,13 +171,13 @@
 }
 
 .routeDescription {
-  margin: clamp(22px, 2.56vw, 37px) 0 0;
-  font-size: clamp(15px, 1.39vw, 20px);
+  margin: clamp(14px, 1.6vw, 23px) 0 0;
+  font-size: clamp(12px, 0.98vw, 14px);
   line-height: 1.1;
 }
 
 .route[data-route="air"] .routeDescription {
-  margin: 0 0 clamp(22px, 2.56vw, 37px);
+  margin: 0 0 clamp(14px, 1.6vw, 23px);
 }
 
 .note {
@@ -214,8 +231,18 @@
     grid-template-columns: minmax(0, 1fr) clamp(94px, 31vw, 132px);
   }
 
+  .route[data-route="air"] {
+    width: 100%;
+    border-top-color: var(--route-ink);
+  }
+
+  .route[data-route="air"]::before,
   .route::after {
     display: none;
+  }
+
+  .route {
+    border-bottom-color: var(--route-ink);
   }
 
   .disc,
