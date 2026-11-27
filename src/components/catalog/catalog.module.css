@@ -224,19 +224,54 @@
 }
 
 .product {
+  --product-surface: var(--color-paper);
+  --product-border: #cbd7ce;
+  --product-ink: #203b31;
+  --product-accent: var(--color-forest);
+  --product-accent-text: #fff;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid #cbd7ce;
+  border: 1px solid var(--product-border);
   border-radius: clamp(12px, 1.4vw, 21px);
-  background: var(--color-paper);
+  background: var(--product-surface);
+  color: var(--product-ink);
+}
+
+.product[data-product="strawberries"] {
+  --product-surface: #f8dce0;
+  --product-border: #da9aa6;
+  --product-ink: #721c30;
+  --product-accent: #a91d38;
+}
+
+.product[data-product="broccoli"] {
+  --product-surface: #d6eadb;
+  --product-border: #a2c0a9;
+  --product-ink: #19482d;
+  --product-accent: #27623d;
+}
+
+.product[data-product="mango"] {
+  --product-surface: #ffebb0;
+  --product-border: #d9af52;
+  --product-ink: #523405;
+  --product-accent: #f2bb31;
+  --product-accent-text: #382305;
+}
+
+.product[data-product="green-beans"] {
+  --product-surface: #e6efcd;
+  --product-border: #b4c58a;
+  --product-ink: #354b1e;
+  --product-accent: #49652c;
 }
 
 .productImage {
   position: relative;
   aspect-ratio: 1.37;
-  background: #e2eade;
+  background: var(--product-surface);
 }
 
 .productImage img {
@@ -256,7 +291,6 @@
 
 .productCopy h3 {
   margin: 0;
-  color: #203b31;
   font-size: clamp(15px, 1.95vw, 28px);
   font-weight: 500;
   line-height: 1.18;
@@ -265,7 +299,6 @@
 
 .productCopy p {
   margin: 0;
-  color: #4d6052;
   font: 500 10px/1.4 var(--font-dm-sans);
   text-transform: uppercase;
 }
@@ -274,14 +307,10 @@
   min-height: 44px;
   padding: 8px 5px;
   border: 0;
-  background: var(--color-forest);
-  color: #fff;
+  background: var(--product-accent);
+  color: var(--product-accent-text);
   font: 600 clamp(10px, 0.91vw, 13px)/1.25 var(--font-dm-sans);
   text-transform: uppercase;
-}
-
-.product[data-product="strawberries"] .productAction {
-  background: #bc1825;
 }
 
 .productAction span {
@@ -357,7 +386,7 @@ a.productAction:hover {
 }
 
 a.productAction:focus-visible {
-  outline: 2px solid white;
+  outline: 2px solid currentColor;
   outline-offset: -5px;
 }
 
