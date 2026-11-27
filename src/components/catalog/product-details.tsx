@@ -9,6 +9,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
   const { id, title, botanicalName, copy, cuts, sizes, defaultCut, defaultSize, enquiry } = product;
   const savedProductKey = "amac:saved-" + id;
   const [cutIndex, setCutIndex] = useState(defaultCut);
+  const [hasChangedCut, setHasChangedCut] = useState(false);
   const [size, setSize] = useState(defaultSize);
   const [savedSelection, setSavedSelection] = useState<string | null>(null);
   const [message, setMessage] = useState("");
@@ -37,6 +38,12 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
       // The selectors and save button also work for this visit with storage disabled.
     }
   }, [cuts, savedProductKey, sizes]);
+
+  function chooseCut(index: number) {
+    if (index === cutIndex) return;
+    setHasChangedCut(true);
+    setCutIndex(index);
+  }
 
   function toggleSavedSelection() {
     const next = saved ? null : selection;
@@ -71,9 +78,12 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
   return (
     <>
       <section className={styles.overview} aria-labelledby="product-title" data-gallery={cuts.length > 1 ? "multiple" : "single"}>
-        <figure className={styles.gallery} aria-label={copy.gallery}>
+        <figure data-reveal className={styles.gallery} aria-label={copy.gallery}>
           <div className={styles.mainPhoto}>
             <Image
+              key={cut.id}
+              className={hasChangedCut ? styles.cutPhoto : undefined}
+              onLoad={(event) => { event.currentTarget.dataset.ready = "true"; }}
               src={cut.image}
               alt={title + " · " + cut.label}
               fill
@@ -91,7 +101,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
                     type="button"
                     aria-label={option.label}
                     aria-pressed={cutIndex === index}
-                    onClick={() => setCutIndex(index)}
+                    onClick={() => chooseCut(index)}
                   >
                     <Image src={option.image} alt="" fill sizes="100px" style={{ objectPosition: option.position }} />
                   </button>
@@ -101,7 +111,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
           )}
         </figure>
 
-        <div className={styles.productInfo}>
+        <div className={styles.productInfo} data-reveal>
           <p className={styles.eyebrow}>{copy.category}</p>
           <h1 id="product-title" className={styles.title}>{title}</h1>
           {botanicalName && <p className={styles.botanicalName}><i lang="la" dir="ltr">{botanicalName}</i></p>}
@@ -113,7 +123,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
               <div className={styles.optionList}>
                 {cuts.map((option, index) => (
                   <label className={styles.option} key={option.id}>
-                    <input type="radio" name="product-cut" value={option.id} checked={cutIndex === index} onChange={() => setCutIndex(index)} />
+                    <input type="radio" name="product-cut" value={option.id} checked={cutIndex === index} onChange={() => chooseCut(index)} />
                     <span className={styles.optionPhoto}>
                       <Image src={option.image} alt="" fill sizes="36px" style={{ objectPosition: option.position }} />
                     </span>
@@ -174,7 +184,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
         <div className={styles.specificationCopy}>
           <p className={styles.eyebrow}>{copy.detailsLabel}</p>
           <h2 id="specifications-heading" data-reveal>{copy.detailsHeading}</h2>
-          <table className={styles.specTable} aria-labelledby="specifications-heading">
+          <table data-reveal className={styles.specTable} aria-labelledby="specifications-heading">
             <tbody>
               {copy.specs.map((label, index) => (
                 <tr key={label}>
@@ -185,7 +195,7 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
             </tbody>
           </table>
         </div>
-        <aside className={styles.requirements}>
+        <aside data-reveal className={styles.requirements}>
           <h2>{copy.requirementsHeading.map((line) => <span key={line}>{line}</span>)}</h2>
           <p>{copy.requirements}</p>
         </aside>

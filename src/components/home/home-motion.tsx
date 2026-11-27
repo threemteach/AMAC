@@ -13,7 +13,7 @@ export function HomeMotion() {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
         observer.unobserve(entry.target);
-        if (preference.matches || entry.target.matches(":focus-within")) continue;
+        if (preference.matches || !entry.target.hasAttribute("data-reveal") || entry.target.matches(":focus-within")) continue;
 
         const animation = entry.target.animate(
           [

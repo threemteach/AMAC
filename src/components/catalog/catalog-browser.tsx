@@ -21,6 +21,7 @@ export function CatalogBrowser({
   initialCategory: Filter;
 }) {
   const { copy, categories, products } = catalog;
+  const [hasFiltered, setHasFiltered] = useState(false);
   const [category, setCategory] = useState<Filter>(initialCategory);
   const [query, setQuery] = useState("");
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
@@ -35,6 +36,7 @@ export function CatalogBrowser({
   const activeSuggestion = showSuggestions ? suggestions[activeIndex] : undefined;
 
   function selectCategory(next: Filter) {
+    setHasFiltered(true);
     setCategory(next);
     const url = new URL(window.location.href);
     if (next === "all") url.searchParams.delete("category");
@@ -59,8 +61,8 @@ export function CatalogBrowser({
     <>
       <section className={styles.hero} aria-labelledby="catalog-heading">
         <p className={styles.eyebrow}>AMAC GROUP</p>
-        <h1 id="catalog-heading" className={styles.heading}>{copy.title}</h1>
-        <p className={styles.intro}>{copy.intro}</p>
+        <h1 data-reveal id="catalog-heading" className={styles.heading}>{copy.title}</h1>
+        <p className={styles.intro} data-reveal>{copy.intro}</p>
         <form
           role="search"
           className={styles.search}
@@ -94,6 +96,7 @@ export function CatalogBrowser({
             value={query}
             onFocus={() => setSuggestionsOpen(true)}
             onChange={(event) => {
+              setHasFiltered(true);
               setQuery(event.target.value);
               setActiveIndex(-1);
               setSuggestionsOpen(true);
@@ -139,6 +142,7 @@ export function CatalogBrowser({
           <button
             key={card.id}
             type="button"
+            data-reveal
             className={styles.categoryCard}
             aria-pressed={category === card.id}
             onClick={() => {
@@ -164,7 +168,7 @@ export function CatalogBrowser({
 
       <section id="collection" className={styles.collection} ref={collection} tabIndex={-1} aria-labelledby="collection-heading">
         <p className={styles.eyebrow}>{copy.collection}</p>
-        <h2 id="collection-heading" className={styles.collectionHeading}>{copy.heading}</h2>
+        <h2 data-reveal id="collection-heading" className={styles.collectionHeading}>{copy.heading}</h2>
         <div className={styles.filters} role="group" aria-label={copy.collection}>
           <button type="button" aria-pressed={category === "all"} onClick={() => selectCategory("all")}>{copy.all}</button>
           {categories.map((card) => (
@@ -183,11 +187,11 @@ export function CatalogBrowser({
             </>
           )}
         </div>
-        <ul className={styles.products}>
+        <ul className={styles.products} data-filtered={hasFiltered}>
           {visibleProducts.map((product) => {
             const categoryName = categories.find((card) => card.id === product.category)?.title;
             return (
-              <li key={product.id} className={styles.product} data-product={product.id}>
+              <li key={product.id} className={styles.product} data-product={product.id} data-reveal={hasFiltered ? undefined : ""}>
                 <div className={styles.productImage}>
                   <Image src={product.image} alt="" fill sizes="(max-width: 600px) 46vw, (max-width: 980px) 30vw, 280px" />
                 </div>
