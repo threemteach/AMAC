@@ -37,3 +37,7 @@ export const localeLabels = {
     sidebar: "Меню навигации", close: "Закрыть меню", standards: "Отраслевые стандарты для справки", language: "Выбрать язык",
   },
 };
+
+export function aboutPath(locale: Locale) {
+  return locale === "en" ? "/about" : homePaths[locale] + "/about";
+}

@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
-import type { Locale } from "../../content/locale";
+import { aboutPath, type Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./our-story.module.css";
 
-export function OurStory({ locale }: { locale: Locale }) {
+export function OurStory({ locale, actionHref = aboutPath(locale) }: { locale: Locale; actionHref?: string }) {
   const { story } = getHomeContent(locale);
   return (
     <section
@@ -38,7 +39,7 @@ export function OurStory({ locale }: { locale: Locale }) {
               </li>
             ))}
           </ol>
-          <span className={styles.action} aria-disabled="true">{story.actionLabel}</span>
+          <Link className={styles.action} href={actionHref}>{story.actionLabel}</Link>
         </div>
       </div>
     </section>

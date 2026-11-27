@@ -55,3 +55,7 @@ The catalog vegetable photographs are illustrative CC0 assets. [Cut Broccoli](ht
 ## Product details
 
 All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Product formats and the enquiry text are configured in `src/content/product-details.ts`. The strawberry example sizes and detail labels live in `src/content/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
+
+## About Us
+
+The About page at `/about` and its localized equivalents uses `src/content/about.ts` for the page copy, core values, and export steps. The core-value icons traced as vector paths from the supplied masks are in `public/images/about/`.
