@@ -50,8 +50,9 @@
 
 .heading {
   margin: clamp(26px, 3.68vw, 53px) 0 0;
+  font-family: var(--font-bricolage), var(--font-inter);
   font-size: clamp(22px, min(7.35vw, 4.653vw + 8px), 67px);
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.1;
 }
 
