@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { catalogCopy } from "../../content/catalog-copy";
-import { contactCopy } from "../../content/contact";
+import { getCatalog } from "../../content/catalog";
+import { generalEnquiryPlaceholder, getContactCopy } from "../../content/contact";
+import { contentText, enquiryRecipient, getCms } from "../../content/cms-store";
 import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import { contactPath, homePaths, type Locale } from "../../content/locale";
 import { enquiryText } from "../../content/product-details";
@@ -15,7 +16,7 @@ import { ContactEnquiry } from "./contact-enquiry";
 import styles from "./contact.module.css";
 
 export function getContactMetadata(locale: Locale): Metadata {
-  const copy = contactCopy[locale];
+  const copy = getContactCopy(locale);
   const languages = Object.fromEntries((Object.keys(homePaths) as Locale[]).map((lang) => [lang, contactPath(lang)]));
   return {
     title: copy.title + " | AMAC Group",
@@ -25,10 +26,12 @@ export function getContactMetadata(locale: Locale): Metadata {
 }
 
 export function ContactPage({ locale, kind }: { locale: Locale; kind: EnquiryKind }) {
-  const copy = contactCopy[locale];
-  const { location: city, contacts: [generalLabel, exportLabel] } = getFooterContent(locale);
+  const copy = getContactCopy(locale);
+  const footer = getFooterContent(locale);
+  const city = contentText(getCms()?.copy.footerLocation, locale, footer.location);
+  const [generalLabel, exportLabel] = footer.contacts;
   const kindLabels = { general: generalLabel, export: exportLabel, product: copy.formTitle };
-  const recipient = (kind === "general" ? process.env.AMAC_GENERAL_EMAIL : process.env.AMAC_EXPORT_EMAIL)?.trim();
+  const recipient = enquiryRecipient(kind);
   const channels = [
     { icon: "location", title: copy.location, lines: [city, copy.address] },
     { icon: "email", title: copy.email, lines: [] },
@@ -75,8 +78,9 @@ export function ContactPage({ locale, kind }: { locale: Locale; kind: EnquiryKin
             kind={kind}
             kindLabels={kindLabels}
             recipient={recipient}
+            generalPlaceholder={generalEnquiryPlaceholder[locale]}
             copy={copy}
-            products={catalogCopy[locale].productTitles}
+            products={getCatalog(locale).products.map(({ title }) => title)}
             dialogLabels={enquiryText[locale]}
           />
         </div>

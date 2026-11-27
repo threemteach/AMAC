@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { homePaths, type Locale } from "./locale";
+import { contentText, getCms } from "./cms-store";
 
-const descriptions: Record<Locale, [string, string]> = {
+export const homeDescriptions: Record<Locale, [string, string]> = {
   en: ["AMAC Group | Frozen Fruits & Vegetables", "Egyptian frozen fruits and vegetables from AMAC Group, based in Alexandria."],
   ar: ["مجموعة أماك | فواكه وخضروات مجمّدة", "فواكه وخضروات مصرية مجمّدة للتصدير من مجموعة أماك في الإسكندرية."],
   fr: ["AMAC Group | Fruits et légumes surgelés", "Fruits et légumes surgelés d’Égypte pour l’exportation, par AMAC Group à Alexandrie."],
@@ -12,12 +13,14 @@ const descriptions: Record<Locale, [string, string]> = {
 };
 
 export function getHomeMetadata(locale: Locale): Metadata {
-  const [title, description] = descriptions[locale];
+  const [title, description] = homeDescriptions[locale];
+  const seo = getCms()?.seo;
   const siteUrl = process.env.AMAC_SITE_URL;
   return {
     metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-    title,
-    description,
-    alternates: { languages: { ...homePaths, "x-default": homePaths.en } },
+    title: contentText(seo?.title, locale, title),
+    description: contentText(seo?.description, locale, description),
+    keywords: contentText(seo?.keywords, locale).split(/[,،\n]/).map((keyword) => keyword.trim()).filter(Boolean),
+    alternates: { canonical: homePaths[locale], languages: { ...homePaths, "x-default": homePaths.en } },
   };
 }

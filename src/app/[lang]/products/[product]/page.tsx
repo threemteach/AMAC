@@ -3,8 +3,6 @@ import { getProductMetadata, ProductPage } from "../../../../components/catalog/
 import { productIds } from "../../../../content/catalog-routes";
 import { additionalLocales } from "../../../../content/locale";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return additionalLocales.flatMap((lang) => productIds.map((product) => ({ lang, product })));
 }
@@ -12,9 +10,8 @@ export function generateStaticParams() {
 async function getRoute(params: PageProps<"/[lang]/products/[product]">["params"]) {
   const { lang, product } = await params;
   const locale = additionalLocales.find((candidate) => candidate === lang);
-  const id = productIds.find((candidate) => candidate === product);
-  if (!locale || !id) notFound();
-  return { locale, id };
+  if (!locale) notFound();
+  return { locale, id: product };
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/products/[product]">) {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { aboutCopy } from "../../content/about";
+import { getAboutCopy } from "../../content/about";
 import { aboutPath, homePaths, type Locale } from "../../content/locale";
 import { ContactBanner } from "../home/contact-banner";
 import { bricolage } from "../home/home-fonts";
@@ -13,7 +13,7 @@ import { CoreValues } from "./core-values";
 import styles from "./about.module.css";
 
 export function getAboutMetadata(locale: Locale): Metadata {
-  const { title, intro } = aboutCopy[locale];
+  const { title, intro } = getAboutCopy(locale);
   const languages = Object.fromEntries((Object.keys(homePaths) as Locale[]).map((lang) => [lang, aboutPath(lang)]));
   return {
     title: title + " | AMAC Group",
@@ -23,7 +23,7 @@ export function getAboutMetadata(locale: Locale): Metadata {
 }
 
 export function AboutPage({ locale }: { locale: Locale }) {
-  const copy = aboutCopy[locale];
+  const copy = getAboutCopy(locale);
 
   return (
     <>

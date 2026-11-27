@@ -69,6 +69,12 @@
   gap: 18px;
 }
 
+.address {
+  display: block;
+  margin-block-start: 3px;
+  overflow-wrap: anywhere;
+}
+
 .socials {
   display: flex;
   gap: 5px;

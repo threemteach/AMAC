@@ -1,4 +1,3 @@
-import type { JournalArticle } from "./journal-routes";
 import { homePaths, type Locale } from "./locale";
 
 export const categoryIds = ["fruits", "vegetables"] as const;
@@ -17,10 +16,10 @@ export function readCategory(value: string | string[] | undefined): Category | "
 }
 
 export const productIds = ["strawberries", "broccoli", "mango", "green-beans"] as const;
-export type ProductId = (typeof productIds)[number];
+export type ProductId = string;
 
 export function productPath(locale: Locale, product: ProductId) {
   return productsPath(locale) + "/" + product;
 }
 
-export type SiteView = "home" | "about" | "contact" | "products" | "journal" | ProductId | JournalArticle;
+export type SiteView = "home" | "about" | "contact" | "products" | "journal" | "product" | "article";

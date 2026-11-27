@@ -62,8 +62,20 @@ The About page at `/about` and its localized equivalents uses `src/content/about
 
 ## Contact
 
-The Contact page at `/contact` and its localized equivalents offers general, export, and product enquiries. The form previews and copies the completed message in the browser. Set `AMAC_GENERAL_EMAIL` and `AMAC_EXPORT_EMAIL` to the official addresses to show a prefilled email link in the preview. Product enquiries use the export address. The country picker uses ISO 3166-1, with Kosovo added, and searches country names and aliases across all supported languages. The office address and phone number are pending the official details.
+The Contact page at `/contact` and its localized equivalents offers general, export, and product enquiries. The form previews and copies the completed message in the browser. Set the official addresses in the admin dashboard to show prefilled email links. Product enquiries use the export address. `AMAC_GENERAL_EMAIL` and `AMAC_EXPORT_EMAIL` are used before the first dashboard publish. The country picker searches ISO 3166-1 country names and aliases across all supported languages, with Kosovo added.
 
 ## Journal
 
 The localized journal and article pages use `src/content/journal.ts` for editorials, titles, and labels. Each article is pre-rendered at its own `/journal/[article]` URL in each language. Set `AMAC_SITE_URL` to the published site origin to generate absolute canonical and language alternate URLs. The three covers come from the supplied journal layouts. The IQF article uses the supplied copy, and the farm and export-partner articles are starter drafts.
+
+## Administration
+
+Open `/admin`. Set a strong `AMAC_ADMIN_PASSWORD` of at least 16 characters in `.env.local` for development or as a server secret in production. Protect the production deployment with HTTPS. The password is for one shared administrator account. Editing and uploads require a signed administration session.
+
+For loopback-only development, a shorter password can be used with a separate random `AMAC_ADMIN_DEV_SESSION_SECRET` of at least 32 characters. This option is enabled only by the development server.
+
+The first visit loads the existing catalog, journal posts, translations, and image references. Edits stay in the editor until **Publish changes**. Unpublished products and articles stay in the dashboard. An article requires its English title, text, and a cover to publish. Each additional translation appears once that language has both a title and text. Product and article slugs become their stable URLs.
+
+Use a persistent directory as `AMAC_CONTENT_DIR` for a single Node.js server. Development defaults to the ignored `.amac-content` directory. Back up the directory with its `content.json` and `media` folder together. A deployment with ephemeral or read-only storage needs a durable storage integration. Set `AMAC_SITE_URL` to the published origin for absolute SEO links and the generated `/sitemap.xml`.
+
+The upload fields show their recommended and minimum dimensions. They accept JPEG, PNG, and WebP files up to 8 MB, and store optimized WebP versions. The recommended sizes are 1920 × 1080 for the hero, 1600 × 1000 for article covers, 1200 × 900 for product and cut images, 900 × 600 for certificates, and 1440 × 1000 for section images.

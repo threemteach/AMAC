@@ -239,6 +239,24 @@
   color: var(--product-ink);
 }
 
+.attributeFilter {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  font-size: 14px;
+}
+
+.attributeFilter select {
+  max-width: 180px;
+  min-height: 38px;
+  padding: 5px 10px;
+  border: 1px solid #8a9d8f;
+  border-radius: 18px;
+  color: var(--color-forest);
+  background: var(--color-paper);
+}
+
 .product[data-product="strawberries"] {
   --product-surface: #f8dce0;
   --product-border: #da9aa6;

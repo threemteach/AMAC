@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, type CSSProperties } from "react";
 import type { getCatalog } from "../../content/catalog";
 import { productPath, type Category } from "../../content/catalog-routes";
 import type { Locale } from "../../content/locale";
@@ -10,6 +10,13 @@ import { searchCatalog } from "./catalog-search";
 import styles from "./catalog.module.css";
 
 type Filter = Category | "all";
+const paletteProperties = ["--product-surface", "--product-border", "--product-ink", "--product-accent", "--product-accent-text"];
+const optionLabels: Record<Locale, [string, string, string]> = {
+  en: ["Cut", "Size", "All"], ar: ["التقطيع", "الحجم", "الكل"],
+  fr: ["Découpe", "Calibre", "Tous"], de: ["Schnitt", "Größe", "Alle"],
+  it: ["Taglio", "Dimensione", "Tutti"], ru: ["Нарезка", "Размер", "Все"],
+  es: ["Corte", "Tamaño", "Todos"],
+};
 
 export function CatalogBrowser({
   locale,
@@ -24,13 +31,33 @@ export function CatalogBrowser({
   const [hasFiltered, setHasFiltered] = useState(false);
   const [category, setCategory] = useState<Filter>(initialCategory);
   const [query, setQuery] = useState("");
+  const [cut, setCut] = useState("");
+  const [size, setSize] = useState("");
+  const [attributeFilters, setAttributeFilters] = useState<Record<string, string>>({});
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const suggestionsId = useId();
   const collection = useRef<HTMLElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const arrow = locale === "ar" ? "↖" : "↗";
-  const visibleProducts = searchCatalog(products, category, query);
+  const cuts = [...new Set(products.flatMap((product) => product.cuts.map((option) => option.label)))];
+  const sizes = [...new Set(products.flatMap((product) => product.sizes))].sort((a, b) => a - b);
+  const attributes = new Map<string, { label: string; values: Map<string, string> }>();
+  for (const { attributes: options } of products) {
+    for (const option of options) {
+      const filter = attributes.get(option.id) ?? { label: option.label, values: new Map<string, string>() };
+      for (const { id, label } of option.values) if (!filter.values.has(id)) filter.values.set(id, label);
+      attributes.set(option.id, filter);
+    }
+  }
+  const [cutLabel, sizeLabel, allLabel] = optionLabels[locale];
+  const formatSizes = new Intl.NumberFormat(locale, { style: "unit", unit: "millimeter" });
+  const visibleProducts = searchCatalog(products, category, query).filter((product) =>
+    (!cut || product.cuts.some((option) => option.label === cut)) && (!size || product.sizes.includes(Number(size))) &&
+    Object.entries(attributeFilters).every(([id, value]) =>
+      !value || product.attributes.some((option) => option.id === id && option.values.some((entry) => entry.id === value)),
+    ),
+  );
   const suggestions = visibleProducts.slice(0, 4);
   const showSuggestions = suggestionsOpen && /[\p{L}\p{N}]/u.test(query) && suggestions.length > 0;
   const activeSuggestion = showSuggestions ? suggestions[activeIndex] : undefined;
@@ -174,6 +201,33 @@ export function CatalogBrowser({
           {categories.map((card) => (
             <button key={card.id} type="button" aria-pressed={category === card.id} onClick={() => selectCategory(card.id)}>{card.title}</button>
           ))}
+          {cuts.length > 0 && (
+            <label className={styles.attributeFilter}>{cutLabel}
+              <select value={cut} onChange={(event) => { setHasFiltered(true); setCut(event.target.value); }}>
+                <option value="">{allLabel}</option>
+                {cuts.map((value) => <option key={value}>{value}</option>)}
+              </select>
+            </label>
+          )}
+          {sizes.length > 0 && (
+            <label className={styles.attributeFilter}>{sizeLabel}
+              <select value={size} onChange={(event) => { setHasFiltered(true); setSize(event.target.value); }}>
+                <option value="">{allLabel}</option>
+                {sizes.map((value) => <option key={value} value={value}>{formatSizes.format(value)}</option>)}
+              </select>
+            </label>
+          )}
+          {[...attributes].map(([id, filter]) => (
+            <label className={styles.attributeFilter} key={id}>{filter.label}
+              <select value={attributeFilters[id] ?? ""} onChange={(event) => {
+                setHasFiltered(true);
+                setAttributeFilters({ ...attributeFilters, [id]: event.target.value });
+              }}>
+                <option value="">{allLabel}</option>
+                {[...filter.values].map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+              </select>
+            </label>
+          ))}
         </div>
         <div aria-live="polite" role="status" className={styles.feedback}>
           {visibleProducts.length === 0 && (
@@ -181,6 +235,9 @@ export function CatalogBrowser({
               <p>{copy.noResults}</p>
               <button type="button" onClick={() => {
                 setQuery("");
+                setCut("");
+                setSize("");
+                setAttributeFilters({});
                 selectCategory("all");
                 searchInput.current?.focus();
               }}>{copy.reset}</button>
@@ -190,8 +247,9 @@ export function CatalogBrowser({
         <ul className={styles.products} data-filtered={hasFiltered}>
           {visibleProducts.map((product) => {
             const categoryName = categories.find((card) => card.id === product.category)?.title;
+            const colors = Object.fromEntries(product.palette?.flatMap((color, index) => color ? [[paletteProperties[index], color]] : []) ?? []);
             return (
-              <li key={product.id} className={styles.product} data-product={product.id} data-reveal={hasFiltered ? undefined : ""}>
+              <li key={product.id} className={styles.product} data-product={product.id} data-reveal={hasFiltered ? undefined : ""} style={colors as CSSProperties}>
                 <div className={styles.productImage}>
                   <Image src={product.image} alt="" fill sizes="(max-width: 600px) 46vw, (max-width: 980px) 30vw, 280px" />
                 </div>

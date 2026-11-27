@@ -1,7 +1,9 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
 import { localeLabels, type Locale } from "../../content/locale";
+import { enquiryPath } from "../../content/enquiry-routes";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./quality-confidence.module.css";
 
@@ -21,7 +23,7 @@ export function QualityConfidence({ locale }: { locale: Locale }) {
       </h2>
       <p className={styles.description}>{qualityConfidence.description}</p>
 
-      <div className={styles.marquee} data-reveal>
+      {qualityConfidence.standards.length > 0 && <div className={styles.marquee} data-reveal>
         <div
           className={styles.track}
           style={{ "--logo-repeats": logoRepeats } as CSSProperties}
@@ -48,10 +50,10 @@ export function QualityConfidence({ locale }: { locale: Locale }) {
             </ul>
           ))}
         </div>
-      </div>
+      </div>}
 
       <p className={styles.note}>{qualityConfidence.standardsNote}</p>
-      <span className={styles.action} aria-disabled="true">{qualityConfidence.actionLabel}</span>
+      <Link className={styles.action} href={enquiryPath(locale, "general")}>{qualityConfidence.actionLabel}</Link>
     </section>
   );
 }
