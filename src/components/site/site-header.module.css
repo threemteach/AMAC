@@ -333,3 +333,37 @@
     animation: none;
   }
 }
+
+.header[data-view="products"] {
+  border-block-end: 1px solid #dce5da;
+  color: var(--color-forest);
+}
+
+.header[data-view="products"] .announcement,
+.header[data-view="products"] .quote,
+.header[data-view="products"] .languageOptions {
+  color: var(--color-white);
+}
+
+.header[data-view="products"] .navigationBar {
+  position: relative;
+  inset: auto;
+  min-height: clamp(56px, 6.65vw, 96px);
+  padding-block: 7px;
+}
+
+.header[data-view="products"] .logo img {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(26%) saturate(1204%) hue-rotate(86deg) brightness(89%) contrast(90%);
+}
+
+.header[data-view="products"] .menuToggle {
+  color: var(--color-forest);
+}
+
+.navigation a:not([aria-current]) {
+  text-decoration: none;
+}
+
+.navigation a:not([aria-current]):hover {
+  text-decoration: underline;
+}

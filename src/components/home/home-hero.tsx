@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { productsPath } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { HomeLoader } from "./home-loader";
@@ -21,9 +23,9 @@ export function HomeHero({ locale }: { locale: Locale }) {
           {hero.description.map((line) => <span key={line}>{line}{" "}</span>)}
         </p>
         <div className={styles.actions}>
-          <span className={styles.primary} aria-disabled="true">
+          <Link className={styles.primary} href={productsPath(locale)}>
             {hero.primaryAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
-          </span>
+          </Link>
           <span className={styles.secondary} aria-disabled="true">
             {hero.secondaryAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
           </span>

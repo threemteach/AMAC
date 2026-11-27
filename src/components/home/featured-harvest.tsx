@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { productsPath } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
@@ -43,7 +45,7 @@ export function FeaturedHarvest({ locale }: { locale: Locale }) {
         ))}
       </ol>
       <div className={styles.catalog}>
-        <span className={styles.catalogAction} aria-disabled="true">{featuredHarvest.catalogAction}</span>
+        <Link className={styles.catalogAction} href={productsPath(locale)}>{featuredHarvest.catalogAction}</Link>
       </div>
     </section>
   );

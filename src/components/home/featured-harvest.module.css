@@ -190,3 +190,7 @@
     min-height: 42px;
   }
 }
+
+.catalogAction {
+  text-decoration: none;
+}

@@ -223,3 +223,7 @@
 .heading:lang(ru) {
   font-family: var(--font-russian-display);
 }
+
+.primary {
+  text-decoration: none;
+}

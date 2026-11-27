@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { categoryIds, categoryPath } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
@@ -16,7 +18,7 @@ export function IngredientCollections({ locale }: { locale: Locale }) {
         <p className={styles.eyebrow}>{ingredientCollections.eyebrow}</p>
         <h2 data-reveal id="ingredient-heading" className={styles.heading}>{ingredientCollections.heading}</h2>
         <ul className={styles.cards}>
-          {ingredientCollections.cards.map((card) => (
+          {ingredientCollections.cards.map((card, index) => (
             <li data-reveal className={styles.card} key={card.title}>
               <Image
                 className={styles.photo}
@@ -26,13 +28,13 @@ export function IngredientCollections({ locale }: { locale: Locale }) {
                 fill
                 sizes="(max-width: 680px) calc(100vw - 32px), (max-width: 1350px) 46vw, 620px"
               />
-              <div className={styles.cardContent}>
+              <Link className={styles.cardContent} href={categoryPath(locale, categoryIds[index])}>
                 <p className={styles.cardLabel}>{card.label}</p>
                 <div>
                   <h3 className={styles.cardTitle}>{card.title}</h3>
                   <p className={styles.cardAction}>{card.actionLabel}</p>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>

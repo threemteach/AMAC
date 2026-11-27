@@ -45,3 +45,9 @@ When the dashboard is implemented, the home content module is the starting point
 The factory process frames are a visual preview. Video playback can be added once the clips are available.
 
 Discuss your shipment and Talk to our team can be linked when their contact destinations are available.
+
+## Product catalog
+
+The catalog at `/products` and its localized equivalents uses `src/content/catalog.ts` for categories and products, and `src/content/catalog-copy.ts` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
+
+The catalog vegetable photographs are illustrative CC0 assets. [Cut Broccoli](https://commons.wikimedia.org/wiki/File:Cut_Broccoli.jpg) is credited to Alabama Extension / Margaret Barse, and [Green beans in a pile](https://commons.wikimedia.org/wiki/File:Green_beans_in_a_pile.JPG) is by Jeffery Martin. Local copies were resized and converted to WebP.
