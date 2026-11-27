@@ -1,9 +1,11 @@
 import Image from "next/image";
-import { footerContent } from "../../content/site";
+import { localeLabels, type Locale } from "../../content/locale";
+import { getFooterContent } from "../../content/site";
 import { SiteCredit } from "./site-credit";
 import styles from "./site-footer.module.css";
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const footerContent = getFooterContent(locale);
   return (
     <footer id="site-footer" className={styles.footer}>
       <div className={styles.inner}>
@@ -12,7 +14,7 @@ export function SiteFooter() {
             <Image
               className={styles.logo}
               src="/images/amac-logo.svg"
-              alt="AMAC Group"
+              alt={localeLabels[locale].brand}
               width={177}
               height={78}
               unoptimized
@@ -52,7 +54,7 @@ export function SiteFooter() {
 
         <div className={styles.bottom}>
           <p>{footerContent.copyright}</p>
-          <SiteCredit className={styles.credit} />
+          <SiteCredit locale={locale} className={styles.credit} />
           <p>{footerContent.tagline}</p>
         </div>
       </div>

@@ -1,11 +1,11 @@
 import { bricolage, myriadPro } from "./home-fonts";
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import styles from "./fields-intro.module.css";
 
-const { fieldsIntro } = homeContent;
-
-export function FieldsIntro() {
+export function FieldsIntro({ locale }: { locale: Locale }) {
+  const { fieldsIntro } = getHomeContent(locale);
   return (
     <section
       className={`${styles.section} ${bricolage.variable} ${myriadPro.variable}`}

@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./shipping-routes.module.css";
 
-const { shippingRoutes } = homeContent;
-
-export function ShippingRoutes() {
+export function ShippingRoutes({ locale }: { locale: Locale }) {
+  const { shippingRoutes } = getHomeContent(locale);
   return (
     <section
       id="shipping-routes"

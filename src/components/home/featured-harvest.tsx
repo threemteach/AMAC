@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./featured-harvest.module.css";
 
-const { featuredHarvest } = homeContent;
-
-export function FeaturedHarvest() {
+export function FeaturedHarvest({ locale }: { locale: Locale }) {
+  const { featuredHarvest } = getHomeContent(locale);
   return (
     <section
       id="featured-harvest"
@@ -36,7 +36,7 @@ export function FeaturedHarvest() {
               <h3 className={styles.name}>{product.name}</h3>
               <p className={styles.description}>{product.description}</p>
               <span className={styles.productAction} aria-disabled="true">
-                {featuredHarvest.productAction} <span aria-hidden="true">↗</span>
+                {featuredHarvest.productAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
               </span>
             </div>
           </li>

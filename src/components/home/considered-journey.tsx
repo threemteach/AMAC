@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./considered-journey.module.css";
 
-const { journey } = homeContent;
-
-export function ConsideredJourney() {
+export function ConsideredJourney({ locale }: { locale: Locale }) {
+  const { journey } = getHomeContent(locale);
   return (
     <section
       id="considered-journey"

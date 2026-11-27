@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { localeLabels, type Locale } from "../../content/locale";
 import { SiteCredit } from "./site-credit";
 import styles from "./site-header.module.css";
 
-export function MobileMenu({ children }: { children: ReactNode }) {
+export function MobileMenu({ children, locale }: { children: ReactNode; locale: Locale }) {
+  const labels = localeLabels[locale];
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const sidebar = useRef<HTMLDialogElement>(null);
@@ -26,7 +28,7 @@ export function MobileMenu({ children }: { children: ReactNode }) {
         ref={button}
         type="button"
         className={styles.menuToggle}
-        aria-label="Menu"
+        aria-label={labels.menu}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={panelId}
@@ -41,7 +43,7 @@ export function MobileMenu({ children }: { children: ReactNode }) {
         ref={sidebar}
         id={panelId}
         className={styles.sidebar}
-        aria-label="Navigation menu"
+        aria-label={labels.sidebar}
         onClose={() => {
           setOpen(false);
           button.current?.focus();
@@ -59,13 +61,13 @@ export function MobileMenu({ children }: { children: ReactNode }) {
           <button
             type="button"
             className={styles.closeMenu}
-            aria-label="Close menu"
+            aria-label={labels.close}
             onClick={() => sidebar.current?.close()}
           >
             <span className={styles.closeIcon} aria-hidden="true" />
           </button>
           {children}
-          <SiteCredit className={styles.sidebarCredit} />
+          <SiteCredit locale={locale} className={styles.sidebarCredit} />
         </div>
       </dialog>
     </div>

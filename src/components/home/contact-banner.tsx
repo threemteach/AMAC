@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./contact-banner.module.css";
 
-const { contactBanner } = homeContent;
-
-export function ContactBanner() {
+export function ContactBanner({ locale }: { locale: Locale }) {
+  const { contactBanner } = getHomeContent(locale);
   return (
     <section
       id="lets-connect"

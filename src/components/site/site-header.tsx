@@ -1,17 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import { homePaths, localeLabels, type Locale } from "../../content/locale";
 import { MobileMenu } from "./mobile-menu";
 import styles from "./site-header.module.css";
 
-const { announcement, navigation, quoteLabel } = homeContent.header;
-const [homeLabel, ...upcomingLinks] = navigation;
-
-export function SiteHeader() {
+export function SiteHeader({ locale }: { locale: Locale }) {
+  const { announcement, navigation, quoteLabel } = getHomeContent(locale).header;
+  const [homeLabel, ...upcomingLinks] = navigation;
+  const labels = localeLabels[locale];
+  const alternate = locale === "ar" ? "en" : "ar";
   const links = (
-    <nav className={styles.navigation} aria-label="Main navigation">
+    <nav className={styles.navigation} aria-label={labels.navigation}>
       <ul>
-        <li><Link href="/" aria-current="page">{homeLabel}</Link></li>
+        <li><Link href={homePaths[locale]} aria-current="page">{homeLabel}</Link></li>
         {upcomingLinks.map((label) => (
           <li key={label}><span aria-disabled="true">{label}</span></li>
         ))}
@@ -21,7 +23,7 @@ export function SiteHeader() {
 
   const quote = (
     <span className={styles.quote} aria-disabled="true">
-      {quoteLabel} <span aria-hidden="true">↗</span>
+      {quoteLabel} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
     </span>
   );
 
@@ -29,12 +31,17 @@ export function SiteHeader() {
     <header className={styles.header}>
       <p className={styles.announcement}>{announcement}</p>
       <div className={styles.navigationBar}>
-        <MobileMenu>{links}{quote}</MobileMenu>
+        <MobileMenu locale={locale}>{links}{quote}</MobileMenu>
         {links}
-        <Link href="/" className={styles.logo} aria-label="AMAC Group home">
-          <Image src="/images/amac-logo.svg" width={177} height={78} alt="AMAC Group" unoptimized />
+        <Link href={homePaths[locale]} className={styles.logo} aria-label={labels.brand}>
+          <Image src="/images/amac-logo.svg" width={177} height={78} alt={labels.brand} unoptimized />
         </Link>
-        {quote}
+        <div className={styles.actions}>
+          {quote}
+          <a className={styles.language} href={homePaths[alternate]} hrefLang={alternate} lang={alternate}>
+            {alternate === "ar" ? "العربية" : "English"}
+          </a>
+        </div>
       </div>
     </header>
   );

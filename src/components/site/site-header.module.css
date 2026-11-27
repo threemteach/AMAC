@@ -65,12 +65,32 @@
   align-items: center;
   gap: clamp(4px, 0.7vw, 10px);
   min-height: clamp(31px, 3.33vw, 48px);
-  margin-right: clamp(0px, calc((100vw - 900px) * 0.089), 48px);
+
   padding-inline: clamp(8px, 1.75vw, 25px);
   border-radius: 999px;
   background: var(--color-forest);
   font-size: clamp(9px, 0.84vw, 12px);
   text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-self: end;
+  align-items: center;
+  gap: clamp(8px, 1.15vw, 16px);
+}
+
+.language {
+  display: grid;
+  min-height: 44px;
+  padding-inline: 6px;
+  place-items: center;
+  font: 600 13px/1.3 Tahoma, Arial, sans-serif;
+  text-underline-offset: 4px;
+}
+
+:global(html[lang="ar"]) .announcement {
+  font-size: clamp(9px, 0.78vw, 12px);
 }
 
 .mobileMenu {
@@ -79,12 +99,26 @@
 
 @media (max-width: 767px) {
   .navigationBar > .navigation,
-  .navigationBar > .quote {
+  .actions > .quote {
     display: none;
   }
 
   .logo {
     grid-area: 1 / 2;
+  }
+
+  .actions {
+    grid-area: 1 / 3;
+  }
+
+  :global(html[dir="rtl"]) .actions {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  :global(html[dir="rtl"]) .mobileMenu {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .mobileMenu {

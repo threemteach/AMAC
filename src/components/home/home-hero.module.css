@@ -196,3 +196,11 @@
     transform: translateX(-9px);
   }
 }
+/* Keep both marquee tracks in a fixed coordinate system for their loop. */
+.ribbonTrack {
+  direction: ltr;
+}
+
+.ribbonItem:lang(ar) {
+  direction: rtl;
+}

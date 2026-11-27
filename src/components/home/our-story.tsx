@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./our-story.module.css";
 
-const { story } = homeContent;
-
-export function OurStory() {
+export function OurStory({ locale }: { locale: Locale }) {
+  const { story } = getHomeContent(locale);
   return (
     <section
       id="our-story"

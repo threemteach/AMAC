@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./factory-process.module.css";
 
-const { factoryProcess } = homeContent;
 const emptyFrames = [2, 3, 4];
 
-export function FactoryProcess() {
+export function FactoryProcess({ locale }: { locale: Locale }) {
+  const { factoryProcess } = getHomeContent(locale);
   return (
     <section
       id="factory-process"

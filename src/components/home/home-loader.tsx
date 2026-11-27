@@ -1,16 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { localeLabels, type Locale } from "../../content/locale";
 import styles from "./home-loader.module.css";
 
-const messages = {
+const english = {
   loading: "Opening the fields…",
   slow: "The farm image is taking a little longer.",
   offline: "You’re offline. You can still explore the page.",
   failed: "The farm image couldn’t load.",
 };
 
-export function HomeLoader() {
+const arabic: typeof english = {
+  loading: "لحظات ونفتح لك أبواب الحقول…",
+  slow: "تحميل صورة المزرعة يستغرق وقتًا أطول.",
+  offline: "انقطع الاتصال. يمكنك متابعة تصفّح الصفحة.",
+  failed: "تعذّر تحميل صورة المزرعة.",
+};
+
+export function HomeLoader({ locale }: { locale: Locale }) {
+  const messages = locale === "ar" ? arabic : english;
   const dialog = useRef<HTMLDialogElement>(null);
   const [phase, setPhase] = useState<keyof typeof messages>("loading");
 
@@ -64,15 +73,15 @@ export function HomeLoader() {
   }, []);
 
   return (
-    <dialog data-home-loader ref={dialog} className={styles.panel} aria-label="Loading AMAC Group">
+    <dialog data-home-loader ref={dialog} className={styles.panel} aria-label={locale === "ar" ? "جارٍ تحميل موقع مجموعة أماك" : "Loading AMAC Group"}>
       <div className={styles.content}>
-        <img src="/images/amac-logo.svg" width="177" height="78" alt="AMAC Group" />
+        <img src="/images/amac-logo.svg" width="177" height="78" alt={localeLabels[locale].brand} />
         <span className={styles.track} data-moving={phase === "loading" || phase === "slow"} aria-hidden="true" />
         <p role="status">{messages[phase]}</p>
         {phase !== "loading" && (
           <div className={styles.actions}>
-            <button onClick={() => dialog.current?.close()}>Continue to site</button>
-            {phase === "failed" && <button onClick={() => window.location.reload()}>Retry</button>}
+            <button onClick={() => dialog.current?.close()}>{locale === "ar" ? "متابعة التصفّح" : "Continue to site"}</button>
+            {phase === "failed" && <button onClick={() => window.location.reload()}>{locale === "ar" ? "إعادة المحاولة" : "Retry"}</button>}
           </div>
         )}
       </div>

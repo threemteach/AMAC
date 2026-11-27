@@ -90,7 +90,7 @@
   position: absolute;
   top: calc(var(--number-size) / 2);
   bottom: 0;
-  left: calc(var(--number-size) / 2);
+  inset-inline-start: calc(var(--number-size) / 2);
   width: 1px;
   background: linear-gradient(#c91825 65%, rgb(201 24 37 / 48%));
   content: "";

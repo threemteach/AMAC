@@ -66,6 +66,7 @@
 
 .step {
   --panel-width: 30.4%;
+  --shape-direction: 1;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -108,11 +109,21 @@
 .step:nth-child(3)::before,
 .step:nth-child(2) .iconPanel::before,
 .step:nth-child(3) .iconPanel::before {
-  transform: scaleX(-1);
+  --shape-direction: -1;
+}
+
+.step::before,
+.iconPanel::before {
+  transform: scaleX(calc(var(--shape-direction) * var(--flow-direction, 1)));
+}
+
+:global(html[dir="rtl"]) .steps {
+  --flow-direction: -1;
 }
 
 .copy {
-  padding: 24px clamp(13px, 2.1vw, 30px) 24px clamp(22px, 3.33vw, 48px);
+  padding-block: 24px;
+  padding-inline: clamp(22px, 3.33vw, 48px) clamp(13px, 2.1vw, 30px);
 }
 
 .step:nth-child(2) .copy,

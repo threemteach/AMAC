@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import type { Locale } from "../../content/locale";
 import { HomeLoader } from "./home-loader";
 import { HeroRibbons } from "./hero-ribbons";
 import styles from "./home-hero.module.css";
 
-const { hero } = homeContent;
-
-export function HomeHero() {
+export function HomeHero({ locale }: { locale: Locale }) {
+  const { hero } = getHomeContent(locale);
   return (
     <section className={styles.hero} aria-labelledby="home-heading">
       <div className={styles.backdrop}>
@@ -22,14 +22,14 @@ export function HomeHero() {
         </p>
         <div className={styles.actions}>
           <span className={styles.primary} aria-disabled="true">
-            {hero.primaryAction} <span aria-hidden="true">↗</span>
+            {hero.primaryAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
           </span>
           <span className={styles.secondary} aria-disabled="true">
-            {hero.secondaryAction} <span aria-hidden="true">↗</span>
+            {hero.secondaryAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
           </span>
         </div>
       </div>
-      <HomeLoader />
+      <HomeLoader locale={locale} />
       <HeroRibbons items={hero.ribbonItems} />
     </section>
   );

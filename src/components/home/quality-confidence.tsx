@@ -1,13 +1,14 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { homeContent } from "../../content/home";
+import { getHomeContent } from "../../content/home-localized";
+import { localeLabels, type Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./quality-confidence.module.css";
 
-const { qualityConfidence } = homeContent;
 const logoRepeats = 8;
 
-export function QualityConfidence() {
+export function QualityConfidence({ locale }: { locale: Locale }) {
+  const { qualityConfidence } = getHomeContent(locale);
   return (
     <section
       id="quality-confidence"
@@ -29,7 +30,7 @@ export function QualityConfidence() {
             <ul
               className={styles.logos}
               key={repeat}
-              aria-label="Industry standards shown for reference"
+              aria-label={localeLabels[locale].standards}
               aria-hidden={repeat > 0}
             >
               {qualityConfidence.standards.map((standard) => (

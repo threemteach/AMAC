@@ -234,15 +234,15 @@
   .route[data-route="air"] .number {
     top: 7px;
     bottom: auto;
-    left: 7px;
+    inset-inline-start: 7px;
     width: 28px;
     font-size: 18px;
     transform: none;
   }
 
   .route[data-route="air"] .number {
-    right: 7px;
-    left: auto;
+    inset-inline-end: 7px;
+    inset-inline-start: auto;
   }
 
   .title {
