@@ -7,6 +7,11 @@ import mangoImage from "../../public/images/frozen-mango.png";
 import greenBeansImage from "../../public/images/frozen-green-beans.png";
 import storyImage from "../../public/images/our-story-field.png";
 
+const brandWatermark = "/images/fields-watermark.svg";
+const transportHeading = ["The right route", "for your destination."];
+const transportDescription =
+  "We discuss the transport options, timing and requirements that fit each enquiry.";
+
 // Keep editable copy and asset references together for the future dashboard.
 export const homeContent = {
   header: {
@@ -32,7 +37,7 @@ export const homeContent = {
     ],
   },
   fieldsIntro: {
-    watermark: "/images/fields-watermark.svg",
+    watermark: brandWatermark,
     eyebrow: "A selection worth sharing",
     heading: ["From our fields", "to your market"],
     description: [
@@ -157,5 +162,46 @@ export const homeContent = {
         icon: { src: "/images/journey/deliver.svg", width: 125, height: 139 },
       },
     ],
+  },
+  factoryProcess: {
+    eyebrow: "From our factory to destination",
+    heading: ["A Process,", "for produce our products"],
+    description:
+      "Every order begins with a clear conversation. Here are the stages involved in bringing the harvest closer to your market.",
+    cover: fruitsImage,
+  },
+  shippingRoutes: {
+    eyebrow: "Connected to your market",
+    heading: transportHeading,
+    description: transportDescription,
+    note: "Availability and cold-chain arrangements depend on the product, route and order.",
+    actionLabel: "Discuss your shipment",
+    methods: [
+      {
+        mode: "land",
+        title: "By Land",
+        description: "Road transport connects the stages of the journey and serves suitable regional routes.",
+        icon: { src: "/images/routes/land.svg", width: 147, height: 115 },
+      },
+      {
+        mode: "air",
+        title: "By Air",
+        description: "Air freight can be considered where timing, product and destination call for it.",
+        icon: { src: "/images/routes/air.svg", width: 115, height: 109 },
+      },
+      {
+        mode: "sea",
+        title: "By sea",
+        description: "Sea freight offers a route for international shipments and larger orders.",
+        icon: { src: "/images/routes/sea.svg", width: 122, height: 115 },
+      },
+    ],
+  },
+  contactBanner: {
+    eyebrow: "Let’s connect",
+    heading: transportHeading,
+    description: transportDescription,
+    watermark: brandWatermark,
+    actionLabel: "Talk to our team",
   },
 };

@@ -19,7 +19,7 @@ export function FieldsIntro() {
         alt=""
         unoptimized
       />
-      <div className={styles.content}>
+      <div className={styles.content} data-reveal>
         <p className={styles.eyebrow}>{fieldsIntro.eyebrow}</p>
         <h2 id="fields-heading" className={styles.heading}>
           {fieldsIntro.heading.map((line) => <span key={line}>{line}{" "}</span>)}

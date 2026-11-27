@@ -14,10 +14,10 @@ export function IngredientCollections() {
     >
       <div className={styles.container}>
         <p className={styles.eyebrow}>{ingredientCollections.eyebrow}</p>
-        <h2 id="ingredient-heading" className={styles.heading}>{ingredientCollections.heading}</h2>
+        <h2 data-reveal id="ingredient-heading" className={styles.heading}>{ingredientCollections.heading}</h2>
         <ul className={styles.cards}>
           {ingredientCollections.cards.map((card) => (
-            <li className={styles.card} key={card.title}>
+            <li data-reveal className={styles.card} key={card.title}>
               <Image
                 className={styles.photo}
                 src={card.image}

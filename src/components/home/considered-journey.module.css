@@ -217,3 +217,30 @@
     padding-block: 21px;
   }
 }
+
+/* Let each incoming row cover the row pinned above it. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 460px) {
+  .steps {
+    isolation: isolate;
+    padding-bottom: 54px;
+  }
+
+  .step {
+    position: sticky;
+    top: clamp(44px, 10svh, 96px);
+  }
+
+  .step:nth-child(n + 3) {
+    top: calc(clamp(44px, 10svh, 96px) + 12px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-height: 460px) and (max-width: 740px) {
+  .step:nth-child(n) {
+    top: calc(clamp(44px, 10svh, 96px) + var(--stack-offset, 0px));
+  }
+
+  .step:nth-child(2) { --stack-offset: 8px; }
+  .step:nth-child(3) { --stack-offset: 16px; }
+  .step:nth-child(4) { --stack-offset: 24px; }
+}

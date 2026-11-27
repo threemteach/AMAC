@@ -1,0 +1,131 @@
+.section {
+  padding: clamp(8px, 1.55vw, 22px) clamp(20px, 2.43vw, 35px) clamp(46px, 5.1vw, 74px);
+  color: #203b31;
+  font-family: var(--font-myriad-pro), var(--font-inter);
+  scroll-margin-top: 16px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #657b5c;
+  font-size: clamp(12px, 1.25vw, 18px);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 17px;
+  border-top: 1px solid currentColor;
+  content: "";
+}
+
+.heading {
+  margin: clamp(8px, 0.9vw, 13px) 0 0;
+  font: 700 clamp(28px, 3.48vw, 50px)/1.1 var(--font-bricolage), var(--font-inter);
+}
+
+.heading span {
+  display: block;
+}
+
+.heading span + span {
+  color: #678163;
+}
+
+.description {
+  width: min(100%, 530px);
+  margin: clamp(10px, 1vw, 14px) auto 0;
+  color: #5d785a;
+  font-size: clamp(15px, 1.39vw, 20px);
+  line-height: 1.15;
+}
+
+.frames {
+  display: grid;
+  width: min(100%, 1370px);
+  margin: clamp(28px, 5vw, 72px) auto 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(13px, 2.08vw, 30px);
+}
+
+.frame {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  overflow: hidden;
+  aspect-ratio: 320 / 425;
+  place-items: center;
+  border: 2px solid #153b21;
+  border-radius: clamp(22px, 3.55vw, 51px);
+  background: #cbd2bf;
+  color: #153b21;
+}
+
+.frame:last-child {
+  border-color: transparent;
+}
+
+.cover {
+  z-index: -2;
+  object-fit: cover;
+  object-position: 62% center;
+}
+
+.preview::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(248 249 244 / 14%) 12%, rgb(21 59 33 / 14%) 47%, #203b31 100%);
+  content: "";
+}
+
+.play {
+  width: min(27%, 85px);
+  aspect-ratio: 85 / 95;
+  background: currentColor;
+  clip-path: polygon(0 2%, 100% 50%, 0 98%);
+  clip-path: shape(
+    from 0 12%,
+    curve to 18% 2% with 0 3% / 9% -1%,
+    line to 93% 40%,
+    curve to 93% 60% with 103% 45% / 103% 55%,
+    line to 18% 98%,
+    curve to 0 88% with 9% 101% / 0 97%,
+    close
+  );
+}
+
+.pause {
+  display: flex;
+  width: min(23.5%, 75px);
+  aspect-ratio: 75 / 95;
+  justify-content: space-between;
+}
+
+.pause::before,
+.pause::after {
+  width: 35%;
+  border-radius: clamp(3px, 0.48vw, 7px);
+  background: currentColor;
+  content: "";
+}
+
+@media (max-width: 740px) {
+  .section {
+    padding-inline: clamp(20px, 6.15vw, 32px);
+  }
+
+  .frames {
+    width: min(100%, 580px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .frame {
+    border-width: 1px;
+  }
+}

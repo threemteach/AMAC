@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { SiteCredit } from "./site-credit";
 import styles from "./site-header.module.css";
 
 export function MobileMenu({ children }: { children: ReactNode }) {
@@ -64,6 +65,7 @@ export function MobileMenu({ children }: { children: ReactNode }) {
             <span className={styles.closeIcon} aria-hidden="true" />
           </button>
           {children}
+          <SiteCredit className={styles.sidebarCredit} />
         </div>
       </dialog>
     </div>

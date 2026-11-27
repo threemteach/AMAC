@@ -12,12 +12,12 @@ export function FeaturedHarvest() {
       className={`${styles.section} ${bricolage.variable} ${myriadPro.variable}`}
       aria-labelledby="harvest-heading"
     >
-      <h2 id="harvest-heading" className={styles.heading}>
+      <h2 data-reveal id="harvest-heading" className={styles.heading}>
         {featuredHarvest.heading.map((line) => <span key={line}>{line}{" "}</span>)}
       </h2>
       <ol className={styles.products}>
         {featuredHarvest.products.map((product, index) => (
-          <li key={product.name} className={styles.product}>
+          <li data-reveal key={product.name} className={styles.product}>
             <div className={styles.productImage}>
               <div className={styles.imageFrame}>
                 <Image

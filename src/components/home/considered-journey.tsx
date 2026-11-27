@@ -13,7 +13,7 @@ export function ConsideredJourney() {
       aria-labelledby="journey-heading"
     >
       <p className={styles.eyebrow}>{journey.eyebrow}</p>
-      <h2 id="journey-heading" className={styles.heading}>
+      <h2 data-reveal id="journey-heading" className={styles.heading}>
         {journey.heading.map((line) => <span key={line}>{line}{" "}</span>)}
       </h2>
       <p className={styles.description}>{journey.description}</p>

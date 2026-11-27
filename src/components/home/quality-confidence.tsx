@@ -15,12 +15,12 @@ export function QualityConfidence() {
       aria-labelledby="quality-heading"
     >
       <p className={styles.eyebrow}>{qualityConfidence.eyebrow}</p>
-      <h2 id="quality-heading" className={styles.heading}>
+      <h2 data-reveal id="quality-heading" className={styles.heading}>
         {qualityConfidence.heading.map((line) => <span key={line}>{line}{" "}</span>)}
       </h2>
       <p className={styles.description}>{qualityConfidence.description}</p>
 
-      <div className={styles.marquee}>
+      <div className={styles.marquee} data-reveal>
         <div
           className={styles.track}
           style={{ "--logo-repeats": logoRepeats } as CSSProperties}

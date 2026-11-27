@@ -12,7 +12,7 @@ export function OurStory() {
       className={`${styles.section} ${bricolage.variable} ${myriadPro.variable}`}
       aria-labelledby="story-heading"
     >
-      <div className={styles.layout}>
+      <div className={styles.layout} data-reveal>
         <div className={styles.frame}>
           <Image
             className={styles.photo}
