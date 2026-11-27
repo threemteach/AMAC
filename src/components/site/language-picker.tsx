@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { productsPath, productPath, type SiteView } from "../../content/catalog-routes";
-import { aboutPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
+import { aboutPath, contactPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
 import styles from "./site-header.module.css";
 
 export function LanguagePicker({ locale, view }: { locale: Locale; view: SiteView }) {
@@ -12,6 +12,7 @@ export function LanguagePicker({ locale, view }: { locale: Locale; view: SiteVie
     if (view === "home") return homePaths[language];
     if (view === "products") return productsPath(language);
     if (view === "about") return aboutPath(language);
+    if (view === "contact") return contactPath(language);
     return productPath(language, view);
   }
 

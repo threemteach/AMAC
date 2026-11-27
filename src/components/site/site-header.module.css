@@ -60,6 +60,7 @@
 }
 
 .quote {
+  text-decoration: none;
   display: inline-flex;
   justify-self: end;
   align-items: center;

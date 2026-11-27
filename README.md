@@ -59,3 +59,7 @@ All catalog items use the shared details template under `/products/[product]` an
 ## About Us
 
 The About page at `/about` and its localized equivalents uses `src/content/about.ts` for the page copy, core values, and export steps. The core-value icons traced as vector paths from the supplied masks are in `public/images/about/`.
+
+## Contact
+
+The Contact page at `/contact` and its localized equivalents uses `src/content/contact.ts` for labels and contact copy. The enquiry form previews and copies the completed message in the browser. The country picker uses ISO 3166-1, with Kosovo added, and searches country names and aliases across all supported languages. The office address, business email addresses, and phone number are pending the official details.

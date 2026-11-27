@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
-import type { Locale } from "../../content/locale";
+import { contactPath, type Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./contact-banner.module.css";
 
@@ -31,7 +32,7 @@ export function ContactBanner({ locale, message }: {
         {message?.description ?? contactBanner.description}
         {message && <><br />{message.detail}</>}
       </p>
-      <span className={styles.action} aria-disabled="true">{contactBanner.actionLabel}</span>
+      <Link className={styles.action} href={contactPath(locale) + "#enquiry"}>{contactBanner.actionLabel}</Link>
     </section>
   );
 }
