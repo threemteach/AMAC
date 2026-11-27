@@ -13,7 +13,7 @@ export function CatalogPage({ locale, category }: { locale: Locale; category: st
       <SiteHeader locale={locale} view="products" />
       <main>
         <CatalogBrowser locale={locale} catalog={getCatalog(locale)} initialCategory={readCategory(category)} />
-        <ContactBanner locale={locale} />
+        <ContactBanner locale={locale} kind="product" />
       </main>
       <SiteFooter locale={locale} />
       <HomeMotion />

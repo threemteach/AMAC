@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { productsPath } from "../../content/catalog-routes";
+import { enquiryPath } from "../../content/enquiry-routes";
+import { journalPath } from "../../content/journal-routes";
 import { aboutPath, contactPath, localeLabels, type Locale } from "../../content/locale";
 import { getFooterContent } from "../../content/site";
 import { SiteCredit } from "./site-credit";
@@ -9,6 +11,7 @@ import styles from "./site-footer.module.css";
 export function SiteFooter({ locale }: { locale: Locale }) {
   const footerContent = getFooterContent(locale);
   const [productsLabel, storyLabel, journalLabel, contactLabel] = footerContent.explore;
+  const [generalLabel, exportLabel] = footerContent.contacts;
   return (
     <footer id="site-footer" className={styles.footer}>
       <div className={styles.inner}>
@@ -33,7 +36,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <ul className={styles.list}>
               <li><Link href={productsPath(locale)}>{productsLabel}</Link></li>
               <li><Link href={aboutPath(locale)}>{storyLabel}</Link></li>
-              <li>{journalLabel}</li>
+              <li><Link href={journalPath(locale)}>{journalLabel}</Link></li>
               <li><Link href={contactPath(locale)}>{contactLabel}</Link></li>
             </ul>
           </div>
@@ -41,7 +44,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <div className={styles.column}>
             <h2>{footerContent.contactHeading}</h2>
             <ul className={styles.contacts}>
-              {footerContent.contacts.map((label) => <li key={label}>{label}</li>)}
+              <li><Link href={enquiryPath(locale, "general")}>{generalLabel}</Link></li>
+              <li><Link href={enquiryPath(locale, "export")}>{exportLabel}</Link></li>
             </ul>
           </div>
 

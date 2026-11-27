@@ -1,3 +1,4 @@
+import type { JournalArticle } from "./journal-routes";
 import { homePaths, type Locale } from "./locale";
 
 export const categoryIds = ["fruits", "vegetables"] as const;
@@ -22,4 +23,4 @@ export function productPath(locale: Locale, product: ProductId) {
   return productsPath(locale) + "/" + product;
 }
 
-export type SiteView = "home" | "about" | "contact" | "products" | ProductId;
+export type SiteView = "home" | "about" | "contact" | "products" | "journal" | ProductId | JournalArticle;

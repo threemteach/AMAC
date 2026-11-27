@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
-import { contactPath, type Locale } from "../../content/locale";
+import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
+import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./contact-banner.module.css";
 
-export function ContactBanner({ locale, message }: {
+export function ContactBanner({ locale, message, kind = "general" }: {
   locale: Locale;
   message?: { heading: string[]; description: string; detail: string };
+  kind?: EnquiryKind;
 }) {
   const { contactBanner } = getHomeContent(locale);
   return (
@@ -32,7 +34,7 @@ export function ContactBanner({ locale, message }: {
         {message?.description ?? contactBanner.description}
         {message && <><br />{message.detail}</>}
       </p>
-      <Link className={styles.action} href={contactPath(locale) + "#enquiry"}>{contactBanner.actionLabel}</Link>
+      <Link className={styles.action} href={enquiryPath(locale, kind)}>{contactBanner.actionLabel}</Link>
     </section>
   );
 }

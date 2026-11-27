@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { catalogCopy } from "../../content/catalog-copy";
 import { contactCopy } from "../../content/contact";
+import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import { contactPath, homePaths, type Locale } from "../../content/locale";
 import { enquiryText } from "../../content/product-details";
 import { getFooterContent } from "../../content/site";
@@ -22,18 +24,20 @@ export function getContactMetadata(locale: Locale): Metadata {
   };
 }
 
-export function ContactPage({ locale }: { locale: Locale }) {
+export function ContactPage({ locale, kind }: { locale: Locale; kind: EnquiryKind }) {
   const copy = contactCopy[locale];
-  const city = getFooterContent(locale).location;
+  const { location: city, contacts: [generalLabel, exportLabel] } = getFooterContent(locale);
+  const kindLabels = { general: generalLabel, export: exportLabel, product: copy.formTitle };
+  const recipient = (kind === "general" ? process.env.AMAC_GENERAL_EMAIL : process.env.AMAC_EXPORT_EMAIL)?.trim();
   const channels = [
     { icon: "location", title: copy.location, lines: [city, copy.address] },
-    { icon: "email", title: copy.email, lines: [copy.emailLabel, copy.emailNote] },
+    { icon: "email", title: copy.email, lines: [] },
     { icon: "phone", title: copy.phone, lines: [copy.phoneNote] },
   ];
 
   return (
     <>
-      <SiteHeader locale={locale} view="contact" />
+      <SiteHeader locale={locale} view="contact" enquiryKind={kind} />
       <main className={styles.page}>
         <section className={styles.hero} aria-labelledby="contact-title">
           <p className={styles.eyebrow}>AMAC GROUP</p>
@@ -54,12 +58,27 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   <div>
                     <h3>{title}</h3>
                     {lines.map((line) => <p key={line}>{line}</p>)}
+                    {icon === "email" && (
+                      <>
+                        <p><Link href={enquiryPath(locale, "general")}>{generalLabel}</Link></p>
+                        <p><Link href={enquiryPath(locale, "export")}>{exportLabel}</Link></p>
+                      </>
+                    )}
                   </div>
                 </li>
               ))}
             </ul>
           </section>
-          <ContactEnquiry locale={locale} copy={copy} products={catalogCopy[locale].productTitles} dialogLabels={enquiryText[locale]} />
+          <ContactEnquiry
+            key={kind}
+            locale={locale}
+            kind={kind}
+            kindLabels={kindLabels}
+            recipient={recipient}
+            copy={copy}
+            products={catalogCopy[locale].productTitles}
+            dialogLabels={enquiryText[locale]}
+          />
         </div>
 
         <section className={styles.location} aria-labelledby="location-title">

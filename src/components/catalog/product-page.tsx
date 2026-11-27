@@ -45,7 +45,7 @@ export function ProductPage({ locale, id }: { locale: Locale; id: ProductId }) {
           </div>
           <ProductDetails key={id} product={product} />
         </div>
-        <ContactBanner locale={locale} />
+        <ContactBanner locale={locale} kind="product" />
       </main>
       <SiteFooter locale={locale} />
       <HomeMotion key={id} />

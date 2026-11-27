@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { ContactPage, getContactMetadata } from "../../../components/contact/contact-page";
+import { readEnquiryKind } from "../../../content/enquiry-routes";
 import { additionalLocales } from "../../../content/locale";
 
 export const dynamicParams = false;
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/contact">)
   return getContactMetadata(await getLocale(params));
 }
 
-export default async function Page({ params }: PageProps<"/[lang]/contact">) {
-  return <ContactPage locale={await getLocale(params)} />;
+export default async function Page({ params, searchParams }: PageProps<"/[lang]/contact">) {
+  const [locale, query] = await Promise.all([getLocale(params), searchParams]);
+  return <ContactPage locale={locale} kind={readEnquiryKind(query.type)} />;
 }
