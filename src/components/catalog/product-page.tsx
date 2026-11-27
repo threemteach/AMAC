@@ -48,7 +48,7 @@ export function ProductPage({ locale, id }: { locale: Locale; id: ProductId }) {
         <ContactBanner locale={locale} />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion />
+      <HomeMotion key={id} />
     </>
   );
 }

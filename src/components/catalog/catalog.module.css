@@ -360,3 +360,29 @@ a.productAction:focus-visible {
   outline: 2px solid white;
   outline-offset: -5px;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .products[data-filtered="true"] .product {
+    animation: filtered-product-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .products[data-filtered="true"] .product:nth-child(2) { animation-delay: 35ms; }
+  .products[data-filtered="true"] .product:nth-child(3) { animation-delay: 70ms; }
+  .products[data-filtered="true"] .product:nth-child(4) { animation-delay: 105ms; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .categoryCard img,
+  .productImage img {
+    transition: scale 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .categoryCard:hover img,
+  .product:hover .productImage img {
+    scale: 1.035;
+  }
+}
+
+@keyframes filtered-product-enter {
+  from { opacity: 0.78; translate: 0 8px; }
+}
