@@ -5,12 +5,13 @@ import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { HomeLoader } from "./home-loader";
 import { HeroRibbons } from "./hero-ribbons";
+import { bricolage } from "./home-fonts";
 import styles from "./home-hero.module.css";
 
 export function HomeHero({ locale }: { locale: Locale }) {
   const { hero } = getHomeContent(locale);
   return (
-    <section className={styles.hero} aria-labelledby="home-heading">
+    <section className={`${styles.hero} ${bricolage.variable}`} aria-labelledby="home-heading">
       <div className={styles.backdrop}>
         <Image id="home-farm-image" src={hero.image} alt="" fill preload sizes="100vw" />
       </div>
