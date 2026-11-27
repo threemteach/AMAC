@@ -124,6 +124,7 @@
 }
 
 .action {
+  text-decoration: none;
   display: grid;
   min-height: 48px;
   margin-top: auto;

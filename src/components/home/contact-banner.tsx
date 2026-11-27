@@ -4,7 +4,10 @@ import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./contact-banner.module.css";
 
-export function ContactBanner({ locale }: { locale: Locale }) {
+export function ContactBanner({ locale, message }: {
+  locale: Locale;
+  message?: { heading: string[]; description: string; detail: string };
+}) {
   const { contactBanner } = getHomeContent(locale);
   return (
     <section
@@ -22,9 +25,12 @@ export function ContactBanner({ locale }: { locale: Locale }) {
       />
       <p id="contact-banner-label" className={styles.eyebrow}>{contactBanner.eyebrow}</p>
       <h2 data-reveal id="contact-banner-heading" className={styles.heading}>
-        {contactBanner.heading.map((line) => <span key={line}>{line}{" "}</span>)}
+        {(message?.heading ?? contactBanner.heading).map((line) => <span key={line}>{line}{" "}</span>)}
       </h2>
-      <p className={styles.description}>{contactBanner.description}</p>
+      <p className={styles.description}>
+        {message?.description ?? contactBanner.description}
+        {message && <><br />{message.detail}</>}
+      </p>
       <span className={styles.action} aria-disabled="true">{contactBanner.actionLabel}</span>
     </section>
   );

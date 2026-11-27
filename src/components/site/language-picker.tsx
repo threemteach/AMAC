@@ -1,16 +1,17 @@
 "use client";
 
 import { useRef } from "react";
-import { productsPath, productPath, type CatalogView } from "../../content/catalog-routes";
-import { homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
+import { productsPath, productPath, type SiteView } from "../../content/catalog-routes";
+import { aboutPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
 import styles from "./site-header.module.css";
 
-export function LanguagePicker({ locale, view }: { locale: Locale; view: CatalogView }) {
+export function LanguagePicker({ locale, view }: { locale: Locale; view: SiteView }) {
   const picker = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
   function link(language: Locale) {
     if (view === "home") return homePaths[language];
     if (view === "products") return productsPath(language);
+    if (view === "about") return aboutPath(language);
     return productPath(language, view);
   }
 

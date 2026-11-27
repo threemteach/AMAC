@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { productsPath } from "../../content/catalog-routes";
-import { localeLabels, type Locale } from "../../content/locale";
+import { aboutPath, localeLabels, type Locale } from "../../content/locale";
 import { getFooterContent } from "../../content/site";
 import { SiteCredit } from "./site-credit";
 import styles from "./site-footer.module.css";
 
 export function SiteFooter({ locale }: { locale: Locale }) {
   const footerContent = getFooterContent(locale);
-  const [productsLabel, ...exploreLabels] = footerContent.explore;
+  const [productsLabel, storyLabel, ...exploreLabels] = footerContent.explore;
   return (
     <footer id="site-footer" className={styles.footer}>
       <div className={styles.inner}>
@@ -32,6 +32,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <h2>{footerContent.exploreHeading}</h2>
             <ul className={styles.list}>
               <li><Link href={productsPath(locale)}>{productsLabel}</Link></li>
+              <li><Link href={aboutPath(locale)}>{storyLabel}</Link></li>
               {exploreLabels.map((label) => <li key={label}>{label}</li>)}
             </ul>
           </div>
