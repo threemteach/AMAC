@@ -1,0 +1,198 @@
+.hero {
+  --photo-height: clamp(420px, 45.15vw, 650px);
+  --ribbon-height: clamp(35px, 4.03vw, 58px);
+  --ribbon-top: calc(var(--photo-height) - clamp(14px, 1.53vw, 22px));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: calc(var(--photo-height) + clamp(75px, 12.57vw, 181px));
+  color: var(--color-white);
+}
+
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: var(--photo-height);
+  background: var(--color-forest);
+  /* Follow the upper edges of the two overlapping ribbons. */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4.375vw), 50% 100%, 0 calc(100% - 4.375vw));
+}
+
+.backdrop img {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.content {
+  width: min(100% - 28px, 1080px);
+  margin-inline: auto;
+  padding-top: clamp(145px, 12.36vw, 178px);
+  text-align: center;
+}
+
+.eyebrow {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: clamp(9px, 0.76vw, 11px);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 8px;
+  border-top: 1px solid currentColor;
+  content: "";
+}
+
+.heading {
+  margin: clamp(26px, 3.68vw, 53px) 0 0;
+  font-size: clamp(22px, min(7.35vw, 4.653vw + 8px), 67px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.heading span {
+  display: block;
+}
+
+.description {
+  max-width: 410px;
+  margin: 6px auto 0;
+  font-size: clamp(13px, 1.04vw, 15px);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  margin-top: clamp(18px, 1.95vw, 28px);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px clamp(10px, 1.12vw, 16px);
+  font: 400 clamp(13px, 1.25vw, 18px)/1.55 var(--font-dm-sans);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  gap: clamp(6px, 0.9vw, 13px);
+  align-items: center;
+}
+
+.primary {
+  padding: clamp(8px, 0.7vw, 10px) clamp(13px, 1.66vw, 24px);
+  border-radius: 999px;
+  background: var(--color-forest);
+}
+
+.secondary {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ribbons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ribbon {
+  --track-offset: 12px;
+  --ribbon-item-width: clamp(210px, 24vw, 345px);
+  position: absolute;
+  top: var(--ribbon-top);
+  left: 50%;
+  width: calc(100% + 80px);
+  height: var(--ribbon-height);
+  overflow: hidden;
+  background: #355f22;
+  transform: translateX(-50%) rotate(5deg);
+  transform-origin: center top;
+}
+
+.ribbon + .ribbon {
+  --track-offset: clamp(-100px, -6.945vw, -28px);
+  background: #8ba287;
+  transform: translateX(-50%) rotate(-5deg);
+}
+
+.ribbonTrack {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(var(--track-offset));
+  animation: scroll-ribbon 24s linear infinite;
+}
+
+.ribbon + .ribbon .ribbonTrack {
+  animation-direction: reverse;
+}
+
+/* Moving by one full set makes the end frame match the start. */
+@keyframes scroll-ribbon {
+  to {
+    transform: translateX(calc(var(--track-offset) - 3 * var(--ribbon-item-width)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbonTrack {
+    animation: none;
+  }
+}
+
+.ribbonItem {
+  display: flex;
+  flex: 0 0 var(--ribbon-item-width);
+  gap: clamp(6px, 0.69vw, 10px);
+  justify-content: center;
+  align-items: center;
+  font: 400 clamp(12px, 1.25vw, 18px)/1 var(--font-dm-sans);
+  white-space: nowrap;
+  word-spacing: 0.12em;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    --photo-height: clamp(390px, 106vw, 440px);
+  }
+
+  .content {
+    padding-top: 122px;
+  }
+
+  .heading {
+    font-size: clamp(21px, 6.85vw, 36px);
+  }
+
+  .description {
+    max-width: 310px;
+  }
+
+  .backdrop img {
+    object-position: center;
+  }
+}
+
+@media (min-width: 601px) {
+  .description span {
+    display: block;
+  }
+}
+
+@media (min-width: 901px) {
+  .backdrop img {
+    transform: translateY(max(-60px, -4.1667vw)) scale(1.14);
+    transform-origin: center top;
+  }
+
+  .actions {
+    transform: translateX(-9px);
+  }
+}

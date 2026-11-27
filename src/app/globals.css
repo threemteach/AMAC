@@ -1,0 +1,22 @@
+:root {
+  --color-paper: #f8f9f4;
+  --color-forest: #143820;
+  --color-white: #f8f9f4;
+  --font-inter: "Inter Variable", Arial, sans-serif;
+  --font-dm-sans: "DM Sans Variable", Arial, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-forest);
+  font-family: var(--font-inter);
+}
+
+a {
+  color: inherit;
+}
