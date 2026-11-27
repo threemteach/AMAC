@@ -1,4 +1,17 @@
 import type { Locale } from "./locale";
+import { contentText, getCms } from "./cms-store";
+
+export function getContactCopy(locale: Locale): ContactCopy {
+  const base = contactCopy[locale];
+  const copy = getCms()?.copy;
+  return {
+    ...base,
+    title: contentText(copy?.contactTitle, locale, base.title),
+    intro: contentText(copy?.contactIntro, locale, base.intro),
+    address: contentText(copy?.contactAddress, locale, base.address),
+    phoneNote: contentText(copy?.contactPhone, locale, base.phoneNote),
+  };
+}
 
 export const generalEnquiryPlaceholder: Record<Locale, string> = {
   en: "How can we help?",

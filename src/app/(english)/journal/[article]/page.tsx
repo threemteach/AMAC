@@ -1,8 +1,5 @@
-import { notFound } from "next/navigation";
 import { getJournalMetadata, JournalPage } from "../../../../components/journal/journal-page";
-import { isJournalArticle, journalIds } from "../../../../content/journal-routes";
-
-export const dynamicParams = false;
+import { journalIds } from "../../../../content/journal-routes";
 
 export function generateStaticParams() {
   return journalIds.map((article) => ({ article }));
@@ -10,7 +7,6 @@ export function generateStaticParams() {
 
 async function getArticle(params: PageProps<"/journal/[article]">["params"]) {
   const { article } = await params;
-  if (!isJournalArticle(article)) notFound();
   return article;
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getJournal } from "../../content/journal";
 import { journalPath, type JournalArticle } from "../../content/journal-routes";
 import { homePaths, type Locale } from "../../content/locale";
@@ -14,15 +15,19 @@ import styles from "./journal.module.css";
 export function getJournalMetadata(locale: Locale, id?: JournalArticle): Metadata {
   const { copy, articles } = getJournal(locale);
   const article = articles.find((entry) => entry.id === id);
-  const title = (article?.title ?? copy.title) + " | AMAC Group";
-  const description = article?.sections[0]?.[1] ?? copy.intro;
+  if (id && !article) notFound();
+  const title = article?.seoTitle || (article?.title ?? copy.title) + " | AMAC Group";
+  const description = article?.seoDescription || (article ? article.summary || article.sections[0]?.[1] : copy.intro);
   const path = journalPath(locale, id);
-  const languages = Object.fromEntries((Object.keys(homePaths) as Locale[]).map((lang) => [lang, journalPath(lang, id)]));
+  const languages = Object.fromEntries((article?.locales ?? Object.keys(homePaths) as Locale[]).map((lang) => [lang, journalPath(lang, id)]));
   return {
     title,
     description,
     alternates: { canonical: path, languages: { ...languages, "x-default": journalPath("en", id) } },
-    openGraph: article ? { type: "article", title, description, url: path } : undefined,
+    openGraph: article ? {
+      type: "article", title, description, url: path,
+      images: process.env.AMAC_SITE_URL ? [{ url: article.image, alt: article.imageAlt }] : undefined,
+    } : undefined,
   };
 }
 
@@ -30,10 +35,11 @@ export function JournalPage({ locale, id }: { locale: Locale; id?: JournalArticl
   const journal = getJournal(locale);
   const { copy, articles } = journal;
   const article = articles.find((entry) => entry.id === id);
+  if (id && !article) notFound();
 
   return (
     <>
-      <SiteHeader locale={locale} view={id ?? "journal"} />
+      <SiteHeader locale={locale} view={article ? "article" : "journal"} slug={id} availableLocales={article?.locales} />
       <main>
         {article ? (
           <article className={styles.article}>
@@ -43,7 +49,7 @@ export function JournalPage({ locale, id }: { locale: Locale; id?: JournalArticl
             <p className={styles.eyebrow}>{copy.tag}</p>
             <h1 data-reveal>{article.title}</h1>
             <div className={styles.articlePhoto} data-reveal>
-              <Image src={article.image} alt="" fill sizes="(max-width: 850px) 92vw, 790px" preload />
+              <Image src={article.image} alt={article.imageAlt} fill sizes="(max-width: 850px) 92vw, 790px" preload />
             </div>
             <div className={styles.articleBody}>
               {article.sections.map(([heading, paragraph]) => (

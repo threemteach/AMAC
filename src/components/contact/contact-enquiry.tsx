@@ -5,7 +5,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { enquiryKinds, enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import type { Locale } from "../../content/locale";
 import { CountryPicker } from "./country-picker";
-import { generalEnquiryPlaceholder, type ContactCopy } from "../../content/contact";
+import type { ContactCopy } from "../../content/contact";
 import type { enquiryText } from "../../content/product-details";
 import styles from "./contact.module.css";
 
@@ -24,6 +24,7 @@ export function ContactEnquiry({
   kind,
   kindLabels,
   recipient,
+  generalPlaceholder,
   copy,
   products,
   dialogLabels,
@@ -32,6 +33,7 @@ export function ContactEnquiry({
   kind: EnquiryKind;
   kindLabels: Record<EnquiryKind, string>;
   recipient?: string;
+  generalPlaceholder: string;
   copy: ContactCopy;
   products: string[];
   dialogLabels: (typeof enquiryText)["en"];
@@ -92,7 +94,7 @@ export function ContactEnquiry({
             <label key={key} className={key === "details" ? styles.wideField : undefined}>
               <span>{label}</span>
               {key === "details" ? (
-                <textarea name={key} placeholder={kind === "general" ? generalEnquiryPlaceholder[locale] : placeholder} rows={3} maxLength={2000} />
+                <textarea name={key} placeholder={kind === "general" ? generalPlaceholder : placeholder} rows={3} maxLength={2000} />
               ) : key === "product" ? (
                 <select name={key} defaultValue="">
                   <option value="">{placeholder}</option>

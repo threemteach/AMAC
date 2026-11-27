@@ -5,12 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import type { getProductDetails } from "../../content/product-details";
 import styles from "./product-details.module.css";
 
-export function ProductDetails({ product }: { product: ReturnType<typeof getProductDetails> }) {
+export function ProductDetails({ product }: { product: NonNullable<ReturnType<typeof getProductDetails>> }) {
   const { id, title, botanicalName, copy, cuts, sizes, defaultCut, defaultSize, enquiry } = product;
   const savedProductKey = "amac:saved-" + id;
   const [cutIndex, setCutIndex] = useState(defaultCut);
   const [hasChangedCut, setHasChangedCut] = useState(false);
-  const [size, setSize] = useState(defaultSize);
+  const [size, setSize] = useState<number | undefined>(defaultSize);
   const [savedSelection, setSavedSelection] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
@@ -191,6 +191,9 @@ export function ProductDetails({ product }: { product: ReturnType<typeof getProd
                   <th scope="row">{label}</th>
                   <td>{values[index]}</td>
                 </tr>
+              ))}
+              {product.attributes.map(({ id, label, values }) => (
+                <tr key={id}><th scope="row">{label}</th><td>{values.map((value) => value.label).join(" · ")}</td></tr>
               ))}
             </tbody>
           </table>

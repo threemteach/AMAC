@@ -1,18 +1,9 @@
-import { getCatalog } from "./catalog";
+import { getBaseProducts, getCatalog } from "./catalog";
 import { productIds, type ProductId } from "./catalog-routes";
-import { getHomeContent } from "./home-localized";
+import { getBaseHomeContent } from "./home-localized";
 import type { Locale } from "./locale";
-import { strawberryCopy, strawberryCuts, strawberrySizes } from "./strawberry";
-
-const formats = {
-  en: ["Florets", "Pieces", "Cut"],
-  ar: ["زهيرات", "قطع", "مقطّعة"],
-  fr: ["Fleurettes", "Morceaux", "Coupés"],
-  de: ["Röschen", "Stücke", "Geschnitten"],
-  it: ["Cimette", "Pezzi", "Tagliati"],
-  ru: ["Соцветия", "Кусочки", "Нарезанные"],
-  es: ["Floretes", "Trozos", "Cortadas"],
-} satisfies Record<Locale, [string, string, string]>;
+import { strawberryCopy } from "./strawberry";
+import { contentText, getCms } from "./cms-store";
 
 export const enquiryText = {
   en: { close: "Close", message: "Enquiry message", copy: "Copy message", copied: "Message copied", manual: "Select and copy the message to share it." },
@@ -26,27 +17,37 @@ export const enquiryText = {
 
 export function getProductDetails(locale: Locale, id: ProductId) {
   const catalog = getCatalog(locale);
-  const product = catalog.products[productIds.indexOf(id)];
+  const product = catalog.products.find((entry) => entry.id === id);
+  if (!product) return null;
   const copy = strawberryCopy[locale];
-  const featured = getHomeContent(locale).featuredHarvest.products[productIds.indexOf(id)];
+  const featured = getBaseHomeContent(locale).featuredHarvest.products[productIds.findIndex((entry) => entry === id)];
+  const baseCategory = getBaseProducts(locale).find((entry) => entry.id === id)?.category;
   const strawberry = id === "strawberries";
+  const entry = getCms()?.products.find((item) => item.slug === id);
+  const description = contentText(entry?.description, locale, strawberry ? copy.description : featured?.description);
 
   return {
     id,
     title: product.title,
-    botanicalName: strawberry ? "Fragaria × ananassa" : undefined,
-    copy: strawberry ? copy : {
+    botanicalName: entry ? entry.botanicalName : strawberry ? "Fragaria × ananassa" : undefined,
+    seoTitle: contentText(entry?.seoTitle, locale),
+    seoDescription: contentText(entry?.seoDescription, locale),
+    copy: {
       ...copy,
-      category: featured.category,
-      description: featured.description,
-      gallery: product.title,
+      category: entry && baseCategory !== product.category
+        ? catalog.categories.find((category) => category.id === product.category)?.title ?? copy.category
+        : strawberry ? copy.category : featured?.category ?? copy.category,
+      description,
+      gallery: strawberry ? copy.gallery : product.title,
+      origin: contentText(entry?.origin, locale, copy.origin),
+      packaging: contentText(entry?.packaging, locale, copy.packaging),
+      availability: contentText(entry?.availability, locale, copy.availability),
     },
-    cuts: strawberry
-      ? strawberryCuts.map((cut, index) => ({ ...cut, label: copy.cuts[index], illustrative: cut.id !== "diced" }))
-      : [{ id: "standard", image: featured.image, position: featured.imagePosition, label: formats[locale][productIds.indexOf(id) - 1], illustrative: false }],
-    sizes: strawberry ? strawberrySizes : [],
-    defaultCut: strawberry ? 2 : 0,
-    defaultSize: strawberry ? 25 : undefined,
+    cuts: product.cuts.map((cut) => ({ ...cut, image: cut.image || product.image })),
+    attributes: product.attributes,
+    sizes: product.sizes,
+    defaultCut: strawberry ? Math.max(0, product.cuts.findIndex((cut) => cut.id === "diced")) : 0,
+    defaultSize: strawberry && product.sizes.includes(25) ? 25 : product.sizes[0],
     enquiry: enquiryText[locale],
   };
 }

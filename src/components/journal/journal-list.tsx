@@ -42,12 +42,12 @@ export function JournalList({ locale, journal }: { locale: Locale; journal: Retu
         {filtered.slice(0, limit).map((article) => (
           <li className={styles.card} key={article.id} data-reveal>
             <div className={styles.cover}>
-              <Image src={article.image} alt="" fill sizes="(max-width: 600px) 92vw, (max-width: 920px) 44vw, 410px" />
+              <Image src={article.image} alt={article.imageAlt} fill sizes="(max-width: 600px) 92vw, (max-width: 920px) 44vw, 410px" />
             </div>
             <div className={styles.cardBody}>
               <p className={styles.tag}>{copy.tag}</p>
               <h3>{article.title}</h3>
-              <p className={styles.summary}>{copy.summary}</p>
+              <p className={styles.summary}>{article.summary || copy.summary}</p>
               <Link href={journalPath(locale, article.id)} className={styles.read} aria-label={copy.read + ": " + article.title}>
                 {copy.read}
               </Link>

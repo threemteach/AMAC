@@ -1,8 +1,5 @@
-import { notFound } from "next/navigation";
 import { getProductMetadata, ProductPage } from "../../../../components/catalog/product-page";
 import { productIds } from "../../../../content/catalog-routes";
-
-export const dynamicParams = false;
 
 export function generateStaticParams() {
   return productIds.map((product) => ({ product }));
@@ -10,9 +7,7 @@ export function generateStaticParams() {
 
 async function getId(params: PageProps<"/products/[product]">["params"]) {
   const { product } = await params;
-  const id = productIds.find((candidate) => candidate === product);
-  if (!id) notFound();
-  return id;
+  return product;
 }
 
 export async function generateMetadata({ params }: PageProps<"/products/[product]">) {

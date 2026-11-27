@@ -3,11 +3,13 @@
 import { useRef } from "react";
 import { productsPath, productPath, type SiteView } from "../../content/catalog-routes";
 import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
-import { isJournalArticle, journalPath } from "../../content/journal-routes";
+import { journalPath } from "../../content/journal-routes";
 import { aboutPath, contactPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
 import styles from "./site-header.module.css";
 
-export function LanguagePicker({ locale, view, enquiryKind }: { locale: Locale; view: SiteView; enquiryKind?: EnquiryKind }) {
+export function LanguagePicker({ locale, view, slug, enquiryKind, availableLocales }: {
+  locale: Locale; view: SiteView; slug?: string; enquiryKind?: EnquiryKind; availableLocales?: Locale[];
+}) {
   const picker = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
   function link(language: Locale) {
@@ -15,9 +17,8 @@ export function LanguagePicker({ locale, view, enquiryKind }: { locale: Locale; 
     if (view === "products") return productsPath(language);
     if (view === "about") return aboutPath(language);
     if (view === "contact") return enquiryKind && enquiryKind !== "product" ? enquiryPath(language, enquiryKind) : contactPath(language);
-    if (view === "journal") return journalPath(language);
-    if (isJournalArticle(view)) return journalPath(language, view);
-    return productPath(language, view);
+    if (view === "journal" || view === "article") return journalPath(language, availableLocales?.includes(language) ? slug : undefined);
+    return slug ? productPath(language, slug) : productsPath(language);
   }
 
   return (

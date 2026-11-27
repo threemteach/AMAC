@@ -1,13 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getCatalog } from "../../content/catalog";
 import { productsPath, productIds, productPath } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
+import { contentText, getCms } from "../../content/cms-store";
 import type { Locale } from "../../content/locale";
 import { bricolage, myriadPro } from "./home-fonts";
 import styles from "./featured-harvest.module.css";
 
 export function FeaturedHarvest({ locale }: { locale: Locale }) {
   const { featuredHarvest } = getHomeContent(locale);
+  const { products, categories } = getCatalog(locale);
+  const cms = getCms();
+  const featured = products.filter((product) => product.featured).map((product) => {
+    const base = featuredHarvest.products[productIds.findIndex((id) => id === product.id)];
+    const entry = cms?.products.find(({ slug }) => slug === product.id);
+    return {
+      ...base, id: product.id, name: entry ? product.title : base?.name ?? product.title,
+      category: entry ? categories.find(({ id }) => id === product.category)?.title : base?.category,
+      description: contentText(entry?.featuredDescription, locale, contentText(entry?.description, locale, base?.description)),
+      image: product.featuredImage || base?.image || product.image,
+    };
+  });
+  if (featured.length === 0) return null;
   return (
     <section
       id="featured-harvest"
@@ -18,8 +33,8 @@ export function FeaturedHarvest({ locale }: { locale: Locale }) {
         {featuredHarvest.heading.map((line) => <span key={line}>{line}{" "}</span>)}
       </h2>
       <ol className={styles.products}>
-        {featuredHarvest.products.map((product, index) => (
-          <li data-reveal key={product.name} className={styles.product}>
+        {featured.map((product, index) => (
+          <li data-reveal key={product.id} className={styles.product}>
             <div className={styles.productImage}>
               <div className={styles.imageFrame}>
                 <Image
@@ -37,7 +52,7 @@ export function FeaturedHarvest({ locale }: { locale: Locale }) {
               <p className={styles.category}>{product.category}</p>
               <h3 className={styles.name}>{product.name}</h3>
               <p className={styles.description}>{product.description}</p>
-              <Link className={styles.productAction} href={productPath(locale, productIds[index])}>
+              <Link className={styles.productAction} href={productPath(locale, product.id)}>
                 {featuredHarvest.productAction} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
               </Link>
             </div>
