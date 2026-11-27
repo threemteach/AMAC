@@ -1,5 +1,15 @@
 import type { Locale } from "./locale";
 
+export const generalEnquiryPlaceholder: Record<Locale, string> = {
+  en: "How can we help?",
+  ar: "إزاي نقدر نساعدك؟",
+  fr: "Comment pouvons-nous vous aider ?",
+  de: "Wie können wir Ihnen helfen?",
+  it: "Come possiamo aiutarti?",
+  es: "¿Cómo podemos ayudarte?",
+  ru: "Чем мы можем вам помочь?",
+};
+
 type FormText = [string, string, string, string, string, string, string];
 
 export type ContactCopy = {
@@ -10,8 +20,6 @@ export type ContactCopy = {
   location: string;
   address: string;
   email: string;
-  emailLabel: string;
-  emailNote: string;
   phone: string;
   phoneNote: string;
   locationDescription: string;
@@ -33,8 +41,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "Our Location",
     address: "Full office address to be added.",
     email: "Email our team",
-    emailLabel: "General / Export enquiries",
-    emailNote: "Official email addresses to be supplied.",
     phone: "Call us",
     phoneNote: "Company phone number to be supplied.",
     locationDescription: "A Mediterranean home. An international outlook.",
@@ -70,8 +76,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "موقعنا",
     address: "سيتم إضافة عنوان المكتب بالتفصيل.",
     email: "راسل فريقنا",
-    emailLabel: "استفسارات عامة واستفسارات التصدير",
-    emailNote: "سيتم إضافة عناوين البريد الرسمية.",
     phone: "اتصل بنا",
     phoneNote: "سيتم إضافة رقم تليفون الشركة.",
     locationDescription: "جذور على المتوسط ونظرة إلى العالم.",
@@ -107,8 +111,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "Notre adresse",
     address: "L’adresse complète du bureau sera ajoutée.",
     email: "Écrivez à notre équipe",
-    emailLabel: "Demandes générales et export",
-    emailNote: "Les adresses e-mail officielles seront ajoutées.",
     phone: "Appelez-nous",
     phoneNote: "Le numéro de l’entreprise sera ajouté.",
     locationDescription: "Un ancrage méditerranéen. Une ouverture internationale.",
@@ -144,8 +146,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "Unser Standort",
     address: "Die vollständige Büroadresse wird ergänzt.",
     email: "Schreiben Sie uns",
-    emailLabel: "Allgemeine Anfragen und Exportanfragen",
-    emailNote: "Die offiziellen E-Mail-Adressen werden ergänzt.",
     phone: "Rufen Sie uns an",
     phoneNote: "Die Telefonnummer des Unternehmens wird ergänzt.",
     locationDescription: "Am Mittelmeer zu Hause. International vernetzt.",
@@ -181,8 +181,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "La nostra sede",
     address: "L’indirizzo completo sarà aggiunto.",
     email: "Scrivi al nostro team",
-    emailLabel: "Richieste generali e per l’export",
-    emailNote: "Gli indirizzi e-mail ufficiali saranno aggiunti.",
     phone: "Chiamaci",
     phoneNote: "Il numero dell’azienda sarà aggiunto.",
     locationDescription: "Una casa sul Mediterraneo. Uno sguardo internazionale.",
@@ -218,8 +216,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "Наш адрес",
     address: "Полный адрес офиса будет добавлен.",
     email: "Напишите нам",
-    emailLabel: "Общие вопросы и вопросы по экспорту",
-    emailNote: "Официальные адреса электронной почты будут добавлены.",
     phone: "Позвоните нам",
     phoneNote: "Телефон компании будет добавлен.",
     locationDescription: "Наш дом у Средиземного моря. Наш рынок — весь мир.",
@@ -255,8 +251,6 @@ export const contactCopy: Record<Locale, ContactCopy> = {
     location: "Dónde estamos",
     address: "Se añadirá la dirección completa de la oficina.",
     email: "Escríbenos",
-    emailLabel: "Consultas generales y de exportación",
-    emailNote: "Se añadirán las direcciones de correo oficiales.",
     phone: "Llámanos",
     phoneNote: "Se añadirá el teléfono de la empresa.",
     locationDescription: "Raíces mediterráneas y una mirada internacional.",

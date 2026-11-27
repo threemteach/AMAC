@@ -62,4 +62,8 @@ The About page at `/about` and its localized equivalents uses `src/content/about
 
 ## Contact
 
-The Contact page at `/contact` and its localized equivalents uses `src/content/contact.ts` for labels and contact copy. The enquiry form previews and copies the completed message in the browser. The country picker uses ISO 3166-1, with Kosovo added, and searches country names and aliases across all supported languages. The office address, business email addresses, and phone number are pending the official details.
+The Contact page at `/contact` and its localized equivalents offers general, export, and product enquiries. The form previews and copies the completed message in the browser. Set `AMAC_GENERAL_EMAIL` and `AMAC_EXPORT_EMAIL` to the official addresses to show a prefilled email link in the preview. Product enquiries use the export address. The country picker uses ISO 3166-1, with Kosovo added, and searches country names and aliases across all supported languages. The office address and phone number are pending the official details.
+
+## Journal
+
+The localized journal and article pages use `src/content/journal.ts` for editorials, titles, and labels. Each article is pre-rendered at its own `/journal/[article]` URL in each language. Set `AMAC_SITE_URL` to the published site origin to generate absolute canonical and language alternate URLs. The three covers come from the supplied journal layouts. The IQF article uses the supplied copy, and the farm and export-partner articles are starter drafts.

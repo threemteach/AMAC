@@ -2,17 +2,21 @@
 
 import { useRef } from "react";
 import { productsPath, productPath, type SiteView } from "../../content/catalog-routes";
+import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
+import { isJournalArticle, journalPath } from "../../content/journal-routes";
 import { aboutPath, contactPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";
 import styles from "./site-header.module.css";
 
-export function LanguagePicker({ locale, view }: { locale: Locale; view: SiteView }) {
+export function LanguagePicker({ locale, view, enquiryKind }: { locale: Locale; view: SiteView; enquiryKind?: EnquiryKind }) {
   const picker = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
   function link(language: Locale) {
     if (view === "home") return homePaths[language];
     if (view === "products") return productsPath(language);
     if (view === "about") return aboutPath(language);
-    if (view === "contact") return contactPath(language);
+    if (view === "contact") return enquiryKind && enquiryKind !== "product" ? enquiryPath(language, enquiryKind) : contactPath(language);
+    if (view === "journal") return journalPath(language);
+    if (isJournalArticle(view)) return journalPath(language, view);
     return productPath(language, view);
   }
 

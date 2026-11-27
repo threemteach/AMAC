@@ -13,5 +13,11 @@ const descriptions: Record<Locale, [string, string]> = {
 
 export function getHomeMetadata(locale: Locale): Metadata {
   const [title, description] = descriptions[locale];
-  return { title, description, alternates: { languages: { ...homePaths, "x-default": homePaths.en } } };
+  const siteUrl = process.env.AMAC_SITE_URL;
+  return {
+    metadataBase: siteUrl ? new URL(siteUrl) : undefined,
+    title,
+    description,
+    alternates: { languages: { ...homePaths, "x-default": homePaths.en } },
+  };
 }
