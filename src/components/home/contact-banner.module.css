@@ -58,6 +58,7 @@
 }
 
 .action {
+  text-decoration: none;
   display: inline-flex;
   width: min(100%, 418px);
   min-height: 48px;

@@ -41,3 +41,7 @@ export const localeLabels = {
 export function aboutPath(locale: Locale) {
   return locale === "en" ? "/about" : homePaths[locale] + "/about";
 }
+
+export function contactPath(locale: Locale) {
+  return locale === "en" ? "/contact" : homePaths[locale] + "/contact";
+}

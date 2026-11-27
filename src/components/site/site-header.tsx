@@ -2,32 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { productsPath, type SiteView } from "../../content/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
-import { aboutPath, homePaths, localeLabels, type Locale } from "../../content/locale";
+import { aboutPath, contactPath, homePaths, localeLabels, type Locale } from "../../content/locale";
 import { LanguagePicker } from "./language-picker";
 import { MobileMenu } from "./mobile-menu";
 import styles from "./site-header.module.css";
 
 export function SiteHeader({ locale, view = "home" }: { locale: Locale; view?: SiteView }) {
   const { announcement, navigation, quoteLabel } = getHomeContent(locale).header;
-  const [homeLabel, productsLabel, aboutLabel, ...upcomingLinks] = navigation;
+  const [homeLabel, productsLabel, aboutLabel, journalLabel, contactLabel] = navigation;
   const labels = localeLabels[locale];
   const links = (
     <nav className={styles.navigation} aria-label={labels.navigation}>
       <ul>
         <li><Link href={homePaths[locale]} aria-current={view === "home" ? "page" : undefined}>{homeLabel}</Link></li>
-        <li><Link href={productsPath(locale)} aria-current={view === "products" ? "page" : view !== "home" && view !== "about" ? "location" : undefined}>{productsLabel}</Link></li>
+        <li><Link href={productsPath(locale)} aria-current={view === "products" ? "page" : view !== "home" && view !== "about" && view !== "contact" ? "location" : undefined}>{productsLabel}</Link></li>
         <li><Link href={aboutPath(locale)} aria-current={view === "about" ? "page" : undefined}>{aboutLabel}</Link></li>
-        {upcomingLinks.map((label) => (
-          <li key={label}><span aria-disabled="true">{label}</span></li>
-        ))}
+        <li><span aria-disabled="true">{journalLabel}</span></li>
+        <li><Link href={contactPath(locale)} aria-current={view === "contact" ? "page" : undefined}>{contactLabel}</Link></li>
       </ul>
     </nav>
   );
 
   const quote = (
-    <span className={styles.quote} aria-disabled="true">
+    <Link className={styles.quote} href={contactPath(locale) + "#enquiry"}>
       {quoteLabel} <span aria-hidden="true">{locale === "ar" ? "↖" : "↗"}</span>
-    </span>
+    </Link>
   );
 
   return (
