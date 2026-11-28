@@ -1,4 +1,4 @@
-import { homePaths, type Locale } from "./locale";
+import { homePaths, type Locale } from "../locale";
 
 export const categoryIds = ["fruits", "vegetables"] as const;
 export type Category = (typeof categoryIds)[number];

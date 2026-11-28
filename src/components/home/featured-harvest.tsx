@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCatalog } from "../../content/catalog";
-import { productsPath, productIds, productPath } from "../../content/catalog-routes";
+import { getCatalog } from "../../content/catalog/catalog";
+import { productsPath, productIds, productPath } from "../../content/catalog/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
-import { contentText, getCms } from "../../content/cms-store";
+import { contentText } from "../../content/localized-text";
+import { getCms } from "../../server/cms/store";
 import type { Locale } from "../../content/locale";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "../shared/site-fonts";
 import styles from "./featured-harvest.module.css";
 
 export function FeaturedHarvest({ locale }: { locale: Locale }) {

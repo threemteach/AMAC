@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useRef, useState, type CSSProperties } from "react";
-import type { getCatalog } from "../../content/catalog";
-import { productPath, type Category } from "../../content/catalog-routes";
+import type { getCatalog } from "../../content/catalog/catalog";
+import { productPath, type Category } from "../../content/catalog/catalog-routes";
 import type { Locale } from "../../content/locale";
 import { searchCatalog } from "./catalog-search";
 import styles from "./catalog.module.css";

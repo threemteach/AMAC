@@ -1,7 +1,9 @@
+import "server-only";
+
 import { z } from "zod";
-import { copyFields } from "./cms-options";
-import { categoryIds } from "./catalog-routes";
-import { languageNames } from "./locale";
+import { copyFields } from "../../content/cms-options";
+import { categoryIds } from "../../content/catalog/catalog-routes";
+import { languageNames } from "../../content/locale";
 
 const text = z.string().trim().max(12000);
 const short = z.string().trim().max(240);

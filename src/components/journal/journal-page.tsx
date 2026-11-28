@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 import { getJournal } from "../../content/journal";
 import { journalPath, type JournalArticle } from "../../content/journal-routes";
 import { homePaths, type Locale } from "../../content/locale";
-import { ContactBanner } from "../home/contact-banner";
-import { HomeMotion } from "../home/home-motion";
+import { ContactBanner } from "../shared/contact-banner";
+import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { JournalList } from "./journal-list";
@@ -70,7 +70,7 @@ export function JournalPage({ locale, id }: { locale: Locale; id?: JournalArticl
         <ContactBanner locale={locale} />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion key={id ?? "journal"} />
+      <SiteMotion key={id ?? "journal"} />
     </>
   );
 }

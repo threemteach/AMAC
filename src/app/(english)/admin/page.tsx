@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { isAdminConfigured, sessionCookie, validSession } from "../../../components/admin/admin-auth";
+import { isAdminConfigured, sessionCookie, validSession } from "../../../server/admin/auth";
 import { AdminDashboard } from "../../../components/admin/admin-dashboard";
 import { AdminLogin } from "../../../components/admin/admin-login";
-import { getCmsDefaults } from "../../../content/cms-defaults";
-import { getCms } from "../../../content/cms-store";
+import { getCmsDefaults } from "../../../server/cms/defaults";
+import { getCms } from "../../../server/cms/store";
 import styles from "../../../components/admin/admin.module.css";
 import "@fontsource-variable/readex-pro/wght.css";
 

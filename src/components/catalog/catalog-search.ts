@@ -1,5 +1,5 @@
 import { scoreWord, tokenize } from "../../content/search-text";
-import type { Category } from "../../content/catalog-routes";
+import type { Category } from "../../content/catalog/catalog-routes";
 
 type SearchableProduct = {
   title: string;

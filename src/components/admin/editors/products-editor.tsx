@@ -1,59 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import type { CmsArticle, CmsProduct } from "../../content/cms-schema";
-import type { Locale } from "../../content/locale";
-import { CheckField, Field, ImageField, LocalizedField, SelectField } from "./admin-fields";
-import styles from "./admin.module.css";
+import type { Locale } from "../../../content/locale";
 
-type EntryPatch<T> = Partial<T> | ((entry: T) => Partial<T>);
-type EntryProps<T> = {
-  entries: T[];
-  locale: Locale;
-  onAdd: (entry: T) => void;
-  onChange: (slug: string, patch: EntryPatch<T>) => void;
-  onRemove: (slug: string) => void;
-  onBusy: (value: number) => void;
-};
-
-function EntryPicker({ entries, selected, onPick, onAdd, locale }: {
-  entries: (CmsProduct | CmsArticle)[]; selected: string; onPick: (slug: string) => void;
-  onAdd: (slug: string) => void; locale: Locale;
-}) {
-  const [slug, setSlug] = useState("");
-  const [search, setSearch] = useState("");
-  const valid = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) && slug.length <= 75 && !entries.some((entry) => entry.slug === slug);
-  const query = search.trim().toLocaleLowerCase(locale);
-  const matches = entries.filter((entry) => [entry.slug, ...Object.values(entry.title)].some(
-    (value) => value.toLocaleLowerCase(locale).includes(query),
-  ));
-  return (
-    <aside className={styles.records} aria-label="السجلات">
-      <form className={styles.createRow} onSubmit={(event) => {
-        event.preventDefault();
-        if (!valid) return;
-        onAdd(slug);
-        setSlug("");
-      }}>
-        <Field label="رابط السجل الجديد" dir="ltr" value={slug}
-          onChange={(value) => setSlug(value.toLowerCase())} hint="حروف إنجليزية وأرقام وشرطة، مثال frozen-peas" />
-        <button className={styles.outline} type="submit" disabled={!valid}>إضافة</button>
-      </form>
-      {entries.length > 4 && <Field label="ابحث في السجلات" value={search} onChange={setSearch} />}
-      <ul className={styles.recordList}>
-        {matches.map((entry) => (
-          <li key={entry.slug}>
-            <button type="button" aria-pressed={selected === entry.slug} onClick={() => onPick(entry.slug)}>
-              <strong dir="auto">{entry.title[locale] || entry.title.en || entry.slug}</strong>
-              <small><span dir="ltr">{entry.slug}</span> · {entry.published ? "منشور" : "مسودة"}</small>
-            </button>
-          </li>
-        ))}
-      </ul>
-      {!matches.length && query && <small>مفيش نتائج مطابقة.</small>}
-    </aside>
-  );
-}
+import type { CmsProduct } from "../../../server/cms/schema";
+import { CheckField, Field, ImageField, LocalizedField, SelectField } from "../admin-fields";
+import { EntryPicker, SeoFields, type EntryPatch, type EntryProps } from "./entry-fields";
+import styles from "../admin.module.css";
 
 const paletteLabels = ["الخلفية", "الإطار", "النص", "خلفية الزر", "نص الزر"];
 const newPalette: CmsProduct["palette"] = ["#e6edde", "#9dae9b", "#203b31", "#244b3d", "#ffffff"];
@@ -207,70 +160,6 @@ export function ProductsEditor({ entries, locale, onAdd, onChange, onRemove, onB
           if (window.confirm("حذف هذا المنتج من القائمة عند النشر؟")) onRemove(product.slug);
         }}>حذف المسودة</button>}
       </article> : <p className={styles.empty}>أضف منتجًا عشان تبدأ.</p>}
-    </div>
-  );
-}
-
-function newArticle(slug: string): CmsArticle {
-  return { slug, title: {}, summary: {}, category: "company", published: false, image: "", imageAlt: {}, body: {}, seoTitle: {}, seoDescription: {} };
-}
-
-function SeoFields({ entry, locale, change }: {
-  entry: Pick<CmsArticle, "seoTitle" | "seoDescription">; locale: Locale;
-  change: (patch: Partial<Pick<CmsArticle, "seoTitle" | "seoDescription">>) => void;
-}) {
-  return <fieldset className={styles.group}>
-    <legend>SEO</legend>
-    <LocalizedField label="عنوان محركات البحث" locale={locale} value={entry.seoTitle}
-      onChange={(seoTitle) => change({ seoTitle })} hint="يفضّل حوالي 50–60 حرفًا." />
-    <LocalizedField label="وصف محركات البحث" locale={locale} value={entry.seoDescription}
-      onChange={(seoDescription) => change({ seoDescription })} multiline hint="يفضّل حوالي 140–160 حرفًا." />
-  </fieldset>;
-}
-
-export function ArticlesEditor({ entries, locale, onAdd, onChange, onRemove, onBusy }: EntryProps<CmsArticle>) {
-  const [selected, select] = useState(entries[0]?.slug ?? "");
-  const article = entries.find((entry) => entry.slug === selected) ?? entries[0];
-  const change = (patch: Partial<CmsArticle>) => article && onChange(article.slug, patch);
-  const body = article?.body[locale] ?? [];
-  const editBody = (next: [string, string][]) => article && change({ body: { ...article.body, [locale]: next } });
-  return (
-    <div className={styles.workspace}>
-      <EntryPicker entries={entries} selected={article?.slug ?? ""} onPick={select} locale={locale}
-        onAdd={(slug) => { onAdd(newArticle(slug)); select(slug); }} />
-      {article ? <article className={styles.editor} key={article.slug}>
-        <div className={styles.recordHeader}>
-          <div><h3 dir="auto">{article.title[locale] || article.title.en || "مقال جديد"}</h3><code dir="ltr">/journal/{article.slug}</code></div>
-          <CheckField label="منشور" value={article.published} onChange={(published) => change({ published })} />
-        </div>
-        <div className={styles.grid}>
-          <LocalizedField label="عنوان المقال" locale={locale} value={article.title} onChange={(title) => change({ title })} />
-          <SelectField label="تصنيف المقال" value={article.category} onChange={(value) => change({ category: value as CmsArticle["category"] })}>
-            <option value="company">الشركة</option><option value="season">الموسم</option><option value="product">المنتجات</option>
-          </SelectField>
-        </div>
-        <LocalizedField label="ملخص بطاقة المقال" locale={locale} value={article.summary} onChange={(summary) => change({ summary })} multiline />
-        <ImageField label="صورة غلاف المقال" value={article.image} onChange={(image) => change({ image })} onBusy={onBusy} preset="article" />
-        <LocalizedField label="وصف الصورة" locale={locale} value={article.imageAlt} onChange={(imageAlt) => change({ imageAlt })} />
-        <fieldset className={styles.group}>
-          <legend>محتوى المقال</legend>
-          <small>أضف عنوان ونص لكل قسم. كل ترجمة جاهزة لها رابطها الخاص.</small>
-          {body.map(([heading, paragraph], index) => (
-            <div className={styles.subCard} key={index}>
-              <Field label={`عنوان الفقرة ${index + 1}`} value={heading}
-                onChange={(value) => editBody(body.map((item, i) => i === index ? [value, paragraph] : item))} />
-              <Field label={`نص الفقرة ${index + 1}`} value={paragraph} multiline
-                onChange={(value) => editBody(body.map((item, i) => i === index ? [heading, value] : item))} />
-              <button type="button" className={styles.textButton} onClick={() => editBody(body.filter((_, i) => i !== index))}>حذف الفقرة</button>
-            </div>
-          ))}
-          <button className={styles.outline} type="button" onClick={() => editBody([...body, ["", ""]])}>إضافة فقرة</button>
-        </fieldset>
-        <SeoFields entry={article} locale={locale} change={change} />
-        {!article.published && <button type="button" className={styles.danger} onClick={() => {
-          if (window.confirm("حذف هذا المقال من القائمة عند النشر؟")) onRemove(article.slug);
-        }}>حذف المسودة</button>}
-      </article> : <p className={styles.empty}>أضف مقالًا عشان تبدأ.</p>}
     </div>
   );
 }

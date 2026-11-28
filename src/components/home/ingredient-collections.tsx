@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categoryIds, categoryPath } from "../../content/catalog-routes";
+import { categoryIds, categoryPath } from "../../content/catalog/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "../shared/site-fonts";
 import styles from "./ingredient-collections.module.css";
 
 export function IngredientCollections({ locale }: { locale: Locale }) {

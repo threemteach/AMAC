@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { CatalogPage } from "../../../components/catalog/catalog-page";
-import { getCatalogMetadata } from "../../../content/catalog-metadata";
+import { getCatalogMetadata } from "../../../content/catalog/catalog-metadata";
 import { additionalLocales } from "../../../content/locale";
 
 async function getLocale(params: PageProps<"/[lang]/products">["params"]) {

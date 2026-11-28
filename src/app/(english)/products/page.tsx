@@ -1,5 +1,5 @@
 import { CatalogPage } from "../../../components/catalog/catalog-page";
-import { getCatalogMetadata } from "../../../content/catalog-metadata";
+import { getCatalogMetadata } from "../../../content/catalog/catalog-metadata";
 
 export function generateMetadata() { return getCatalogMetadata("en"); }
 

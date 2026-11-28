@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { productPath, type ProductId } from "../../content/catalog-routes";
+import { productPath, type ProductId } from "../../content/catalog/catalog-routes";
 import type { Locale } from "../../content/locale";
 import styles from "./product-details.module.css";
 

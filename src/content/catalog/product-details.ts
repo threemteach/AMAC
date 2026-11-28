@@ -1,9 +1,10 @@
 import { getBaseProducts, getCatalog } from "./catalog";
 import { productIds, type ProductId } from "./catalog-routes";
-import { getBaseHomeContent } from "./home-localized";
-import type { Locale } from "./locale";
+import { getBaseHomeContent } from "../home-localized";
+import type { Locale } from "../locale";
 import { strawberryCopy } from "./strawberry";
-import { contentText, getCms } from "./cms-store";
+import { contentText } from "../localized-text";
+import { getCms } from "../../server/cms/store";
 
 export const enquiryText = {
   en: { close: "Close", message: "Enquiry message", copy: "Copy message", copied: "Message copied", manual: "Select and copy the message to share it." },

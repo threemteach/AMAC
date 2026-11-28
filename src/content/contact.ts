@@ -1,5 +1,6 @@
 import type { Locale } from "./locale";
-import { contentText, getCms } from "./cms-store";
+import { contentText } from "./localized-text";
+import { getCms } from "../server/cms/store";
 
 export function getContactCopy(locale: Locale): ContactCopy {
   const base = contactCopy[locale];

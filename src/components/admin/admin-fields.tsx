@@ -2,7 +2,7 @@
 
 import { useId, useState, type ChangeEvent, type ReactNode } from "react";
 import { maxUploadBytes, mediaPresets, type MediaPreset } from "../../content/cms-options";
-import type { LocalizedText } from "../../content/cms-schema";
+import type { LocalizedText } from "../../server/cms/schema";
 import type { Locale } from "../../content/locale";
 import styles from "./admin.module.css";
 

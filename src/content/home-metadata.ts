@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { homePaths, type Locale } from "./locale";
-import { contentText, getCms } from "./cms-store";
+import { contentText } from "./localized-text";
+import { getCms } from "../server/cms/store";
 
 export const homeDescriptions: Record<Locale, [string, string]> = {
   en: ["AMAC Group | Frozen Fruits & Vegetables", "Egyptian frozen fruits and vegetables from AMAC Group, based in Alexandria."],

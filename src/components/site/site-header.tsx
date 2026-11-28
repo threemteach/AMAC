@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productsPath, type SiteView } from "../../content/catalog-routes";
+import { productsPath, type SiteView } from "../../content/catalog/catalog-routes";
 import type { EnquiryKind } from "../../content/enquiry-routes";
 import { journalPath } from "../../content/journal-routes";
 import { getHomeContent } from "../../content/home-localized";

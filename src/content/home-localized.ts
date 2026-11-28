@@ -1,7 +1,8 @@
 import { homeContent as en } from "./home";
 import { getInternationalHome } from "./international-home";
 import type { Locale } from "./locale";
-import { contentText, getCms, lines } from "./cms-store";
+import { contentText, lines } from "./localized-text";
+import { getCms } from "../server/cms/store";
 import type { CopyField } from "./cms-options";
 
 const shippingHeading = ["وسيلة الشحن المناسبة", "لوجهتك."];
