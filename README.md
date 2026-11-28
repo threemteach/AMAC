@@ -21,7 +21,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Playwright builds the site in `.next-e2e` and starts its own server at `http://127.0.0.1:3217`. Keep that port free. The tests use fresh test data and a test admin password, so the live content and local login settings are unaffected. They cover admin login and logout, image upload validation and WebP previews, article publishing, and combined product filters.
+Playwright builds the site in `.next-e2e` and starts its own server at `http://127.0.0.1:3217`. Keep that port free. The tests use fresh test data and a test admin password, so the live content and local login settings are unaffected. They cover admin login and logout, image upload validation and WebP previews, article publishing, and catalog category changes.
 
 Use `npm run test:e2e -- --headed` to watch in Chromium or `npx playwright show-report` to open the last report. On Linux, use `npx playwright install --with-deps chromium` if browser system dependencies are missing.
 
