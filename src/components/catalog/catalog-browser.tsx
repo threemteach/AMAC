@@ -22,13 +22,10 @@ export function CatalogBrowser({
   const [hasFiltered, setHasFiltered] = useState(false);
   const [category, setCategory] = useState<CategoryFilter>(initialCategory);
   const [query, setQuery] = useState("");
-  const [cut, setCut] = useState("");
-  const [size, setSize] = useState("");
   const [attributeFilters, setAttributeFilters] = useState<Record<string, string>>({});
   const collection = useRef<HTMLElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const visibleProducts = searchCatalog(products, category, query).filter((product) =>
-    (!cut || product.cuts.some((option) => option.label === cut)) && (!size || product.sizes.includes(Number(size))) &&
     Object.entries(attributeFilters).every(([id, value]) =>
       !value || product.attributes.some((option) => option.id === id && option.values.some((entry) => entry.id === value)),
     ),
@@ -37,6 +34,8 @@ export function CatalogBrowser({
   function selectCategory(next: CategoryFilter) {
     setHasFiltered(true);
     setCategory(next);
+    setQuery("");
+    setAttributeFilters({});
     const url = new URL(window.location.href);
     if (next === "all") url.searchParams.delete("category");
     else url.searchParams.set("category", next);
@@ -47,15 +46,6 @@ export function CatalogBrowser({
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     collection.current?.focus({ preventScroll: true });
     collection.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-  }
-
-  function resetFilters() {
-    setQuery("");
-    setCut("");
-    setSize("");
-    setAttributeFilters({});
-    selectCategory("all");
-    searchInput.current?.focus();
   }
 
   return (
@@ -81,13 +71,11 @@ export function CatalogBrowser({
         catalog={catalog}
         visibleProducts={visibleProducts}
         collection={collection}
-        filters={{ category, cut, size, attributeFilters }}
+        category={category}
+        attributeFilters={attributeFilters}
         hasFiltered={hasFiltered}
         selectCategory={selectCategory}
-        selectCut={(value) => { setHasFiltered(true); setCut(value); }}
-        selectSize={(value) => { setHasFiltered(true); setSize(value); }}
         selectAttribute={(id, value) => { setHasFiltered(true); setAttributeFilters({ ...attributeFilters, [id]: value }); }}
-        resetFilters={resetFilters}
       />
     </>
   );
