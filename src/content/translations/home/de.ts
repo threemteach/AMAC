@@ -1,4 +1,5 @@
-import type { InternationalHomeCopy } from "../international-home";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import type { InternationalHomeCopy } from "../../international-home";
 
 export const de: InternationalHomeCopy = {
   header: {
@@ -178,3 +179,13 @@ export const de: InternationalHomeCopy = {
     actionLabel: "Unser Team kontaktieren"
   }
 };
+
+
+export const loading: LoadingCopy = {
+  title: "AMAC Group wird geladen", loading: "Die Seite wird geladen…",
+  slow: "Das Laden des Feldfotos dauert etwas länger.",
+  offline: "Sie sind offline. Sie können die Seite weiterhin ansehen.",
+  failed: "Das Feldfoto konnte nicht geladen werden.", continue: "Weiter zur Website", retry: "Erneut versuchen",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Tiefgekühltes Obst und Gemüse", "Tiefgekühltes Obst und Gemüse aus Ägypten für den Export, von AMAC Group in Alexandria."];

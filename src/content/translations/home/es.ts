@@ -1,4 +1,5 @@
-import type { InternationalHomeCopy } from "../international-home";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import type { InternationalHomeCopy } from "../../international-home";
 
 const processDescription = "Cada pedido empieza con una conversación sobre tus necesidades. Estas son las etapas que acercan la cosecha a tu mercado.";
 const shippingHeading = ["El transporte adecuado", "para tu destino."];
@@ -101,3 +102,13 @@ export const es: InternationalHomeCopy = {
     actionLabel: "Contactar con nuestro equipo",
   },
 };
+
+
+export const loading: LoadingCopy = {
+  title: "Cargando el sitio de AMAC Group", loading: "Cargando la página…",
+  slow: "La foto del campo está tardando un poco más.",
+  offline: "No tienes conexión. Puedes seguir explorando la página.",
+  failed: "No se ha podido cargar la foto del campo.", continue: "Continuar al sitio", retry: "Reintentar",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Frutas y verduras congeladas", "Frutas y verduras congeladas de Egipto para exportación, de AMAC Group en Alejandría."];

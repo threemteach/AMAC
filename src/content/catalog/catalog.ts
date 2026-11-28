@@ -1,11 +1,12 @@
 import type { StaticImageData } from "next/image";
 import { getBaseHomeContent, getHomeContent } from "../home-localized";
-import { catalogCopy } from "./catalog-copy";
+import { catalogCopy } from "../translations/catalog";
 import { categoryIds, type Category, type ProductId } from "./catalog-routes";
 import { languageNames, type Locale } from "../locale";
 import { contentText } from "../localized-text";
 import { getCms } from "../../server/cms/store";
-import { strawberryCopy, strawberryCuts, strawberrySizes } from "./strawberry";
+import { formats, strawberryCopy } from "../translations/product";
+import { strawberryCuts, strawberrySizes } from "./strawberry";
 
 type CatalogProduct = {
   id: ProductId;
@@ -30,13 +31,6 @@ const categoryKeywords: Record<Category, string[]> = {
   fruits: ["فواكه", "فاكهة", "فاكهه", "fruit"],
   vegetables: ["خضار", "خضروات", "vegetable"],
 };
-
-const formats = {
-  en: ["Florets", "Pieces", "Cut"], ar: ["زهيرات", "قطع", "مقطّعة"],
-  fr: ["Fleurettes", "Morceaux", "Coupés"], de: ["Röschen", "Stücke", "Geschnitten"],
-  it: ["Cimette", "Pezzi", "Tagliati"], ru: ["Соцветия", "Кусочки", "Нарезанные"],
-  es: ["Floretes", "Trozos", "Cortadas"],
-} satisfies Record<Locale, [string, string, string]>;
 
 export function getBaseProducts(locale: Locale): CatalogProduct[] {
   const home = getBaseHomeContent(locale);

@@ -1,4 +1,5 @@
-import type { InternationalHomeCopy } from "../international-home";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import type { InternationalHomeCopy } from "../../international-home";
 
 export const fr: InternationalHomeCopy = {
   header: {
@@ -178,3 +179,13 @@ export const fr: InternationalHomeCopy = {
     actionLabel: "Parler à notre équipe"
   }
 };
+
+
+export const loading: LoadingCopy = {
+  title: "Chargement du site AMAC Group", loading: "Chargement en cours…",
+  slow: "La photo de la ferme met un peu plus de temps à s’afficher.",
+  offline: "Vous êtes hors ligne. Vous pouvez continuer à parcourir la page.",
+  failed: "La photo de la ferme n’a pas pu être chargée.", continue: "Continuer vers le site", retry: "Réessayer",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Fruits et légumes surgelés", "Fruits et légumes surgelés d’Égypte pour l’exportation, par AMAC Group à Alexandrie."];

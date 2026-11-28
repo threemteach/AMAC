@@ -6,7 +6,7 @@ import { enquiryKinds, enquiryPath, type EnquiryKind } from "../../content/enqui
 import type { Locale } from "../../content/locale";
 import { CountryPicker } from "./country-picker";
 import type { ContactCopy } from "../../content/contact";
-import type { enquiryText } from "../../content/catalog/product-details";
+import type { enquiryText } from "../../content/translations/product";
 import styles from "./contact.module.css";
 
 const fields = [

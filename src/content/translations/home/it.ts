@@ -1,4 +1,5 @@
-import type { InternationalHomeCopy } from "../international-home";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import type { InternationalHomeCopy } from "../../international-home";
 
 export const it: InternationalHomeCopy = {
   header: {
@@ -178,3 +179,13 @@ export const it: InternationalHomeCopy = {
     actionLabel: "Contatta il nostro team"
   }
 };
+
+
+export const loading: LoadingCopy = {
+  title: "Caricamento del sito AMAC Group", loading: "Caricamento in corso…",
+  slow: "La foto dei campi richiede un po’ più di tempo.",
+  offline: "Sei offline. Puoi comunque continuare a esplorare la pagina.",
+  failed: "Non è stato possibile caricare la foto dei campi.", continue: "Continua al sito", retry: "Riprova",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Frutta e verdura surgelate", "Frutta e verdura surgelate egiziane per l’esportazione, da AMAC Group ad Alessandria d’Egitto."];

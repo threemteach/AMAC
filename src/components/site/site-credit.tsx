@@ -1,5 +1,6 @@
 import type { Locale } from "../../content/locale";
-import { creditLabels, siteCredit } from "../../content/site";
+import { siteCredit } from "../../content/site";
+import { creditLabels } from "../../content/translations/site";
 
 export function SiteCredit({ className, locale }: { className: string; locale: Locale }) {
   return (
