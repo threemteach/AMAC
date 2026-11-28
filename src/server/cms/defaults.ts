@@ -1,17 +1,17 @@
 import "server-only";
 
-import { aboutCopy } from "../../content/about";
+import { aboutCopy } from "../../content/translations/about";
 import { getBaseProducts } from "../../content/catalog/catalog";
-import { catalogCopy } from "../../content/catalog/catalog-copy";
+import { catalogCopy } from "../../content/translations/catalog";
 import type { CmsContent } from "./schema";
 import type { CopyField } from "../../content/cms-options";
-import { contactCopy } from "../../content/contact";
+import { contactCopy } from "../../content/translations/contact";
 import { getBaseHomeContent } from "../../content/home-localized";
-import { homeDescriptions } from "../../content/home-metadata";
+import { homeDescriptions } from "../../content/translations/home";
 import { getBaseJournal } from "../../content/journal";
 import { languageNames, type Locale } from "../../content/locale";
 import { getFooterContent } from "../../content/site";
-import { strawberryCopy } from "../../content/catalog/strawberry";
+import { strawberryCopy } from "../../content/translations/product";
 
 const locales = Object.keys(languageNames) as Locale[];
 const arrayText = (value: string[]) => value.join("\n");

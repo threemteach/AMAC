@@ -1,4 +1,5 @@
-import type { InternationalHomeCopy } from "../international-home";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import type { InternationalHomeCopy } from "../../international-home";
 
 export const ru: InternationalHomeCopy = {
   header: {
@@ -178,3 +179,13 @@ export const ru: InternationalHomeCopy = {
     actionLabel: "Связаться с командой"
   }
 };
+
+
+export const loading: LoadingCopy = {
+  title: "Загрузка сайта AMAC Group", loading: "Страница загружается…",
+  slow: "Загрузка фотографии полей занимает чуть больше времени.",
+  offline: "Нет подключения к интернету. Вы можете продолжить просмотр страницы.",
+  failed: "Не удалось загрузить фотографию полей.", continue: "Перейти на сайт", retry: "Повторить",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Замороженные фрукты и овощи", "Замороженные фрукты и овощи из Египта на экспорт от компании AMAC Group из Александрии."];

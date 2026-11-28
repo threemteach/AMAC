@@ -2,18 +2,9 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { Locale } from "../../content/locale";
+import { pickerCopy } from "../../content/translations/contact";
 import { findExactCountry, getCountries, searchCountries, type Country } from "./countries";
 import styles from "./contact.module.css";
-
-const pickerCopy: Record<Locale, [noResults: string, invalid: string]> = {
-  en: ["No countries found.", "Choose a country from the list."],
-  ar: ["لا توجد دول مطابقة.", "اختر دولة من القائمة."],
-  fr: ["Aucun pays trouvé.", "Choisissez un pays dans la liste."],
-  de: ["Keine Länder gefunden.", "Wählen Sie ein Land aus der Liste."],
-  it: ["Nessun paese trovato.", "Scegli un paese dall’elenco."],
-  ru: ["Страны не найдены.", "Выберите страну из списка."],
-  es: ["No se encontraron países.", "Elige un país de la lista."],
-};
 
 export function CountryPicker({ locale, label, placeholder }: { locale: Locale; label: string; placeholder: string }) {
   const countries = useMemo(() => getCountries(locale), [locale]);

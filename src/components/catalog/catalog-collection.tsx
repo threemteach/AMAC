@@ -4,13 +4,10 @@ import type { CSSProperties, RefObject } from "react";
 import type { CatalogData } from "../../content/catalog/catalog";
 import { productPath, type CategoryFilter } from "../../content/catalog/catalog-routes";
 import type { Locale } from "../../content/locale";
+import { allLabels } from "../../content/translations/catalog";
 import styles from "./catalog.module.css";
 
 const paletteProperties = ["--product-surface", "--product-border", "--product-ink", "--product-accent", "--product-accent-text"];
-const allLabels: Record<Locale, string> = {
-  en: "All", ar: "الكل", fr: "Tous", de: "Alle", it: "Tutti", ru: "Все", es: "Todos",
-};
-
 export function CatalogCollection({
   locale, catalog, visibleProducts, collection, category, attributeFilters, hasFiltered,
   selectCategory, selectAttribute,

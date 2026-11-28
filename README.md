@@ -21,7 +21,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Playwright builds the site in `.next-e2e` and starts its own server at `http://127.0.0.1:3217`. Keep that port free. The tests use fresh test data and a test admin password, so the live content and local login settings are unaffected. They cover admin login and logout, image upload validation and WebP previews, article publishing, and catalog category changes.
+Playwright builds the site in `.next-e2e` and starts its own server at `http://127.0.0.1:3217`. Keep that port free. The tests use fresh test data and a test admin password, so the live content and local login settings are unaffected. They cover admin login and logout, image upload validation and WebP previews, article publishing, multilingual catalog search and category changes, language switching, and country search.
 
 Use `npm run test:e2e -- --headed` to watch in Chromium or `npx playwright show-report` to open the last report. On Linux, use `npx playwright install --with-deps chromium` if browser system dependencies are missing.
 
@@ -48,11 +48,12 @@ Page components assemble their sections in display order. About and Contact sect
 | `src/components/home/factory-process.tsx` | Four factory media frames and the supplied fruit cover. |
 | `src/components/home/shipping-routes.tsx` | Road, air, and sea shipping cards with supplied SVGs. |
 | `src/components/shared/contact-banner.tsx` | Bottom contact banner and its brand watermark. |
-| `src/content/home.ts` | English home page copy and shared asset references. |
-| `src/content/home-localized.ts` | Arabic home page copy and locale selection. |
-| `src/content/translations/` | French, German, Italian, Russian, and Spanish home page copy. |
+| `src/content/home-localized.ts` | Locale selection and published CMS overrides for the home page. |
+| `src/content/translations/` | Default copy grouped by section and then by language. |
 | `src/content/locale.ts` | Language routes and shared accessibility labels. |
 | `public/images/` | The original farm image, AMAC SVG logo, and fields watermark SVG. |
+
+To edit default text, open `src/content/translations/<section>/<language>.ts`. For example, edit `contact/ar.ts` for Arabic contact copy, `home/fr.ts` for French home and header copy, or `site/fr.ts` for French footer and accessibility labels. Each section has an `index.ts` that maps locale codes to its dictionaries. The language URLs and route helpers live in `src/content/locale.ts` and the section route modules. When content has been published in the dashboard, the published values still take precedence.
 
 The component CSS modules hold responsive sizing and positioning. `src/app/document.tsx` sets the document language and direction and loads Inter and DM Sans from local package assets. The Latin locales share the English type stack. Arabic uses Readex Pro Variable. Russian uses Onest Variable for display type and Inter for body and interface text. The fields introduction loads Bricolage Grotesque Bold and Myriad Pro Regular from local font files through next/font. On narrow screens, the header opens a left sidebar from the menu button and the farm image crops around its center.
 
@@ -64,17 +65,17 @@ Discuss your shipment and Talk to our team can be linked when their contact dest
 
 ## Product catalog
 
-The catalog at `/products` and its localized equivalents uses `src/content/catalog/catalog.ts` for categories and products, and `src/content/catalog/catalog-copy.ts` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
+The catalog at `/products` and its localized equivalents uses `src/content/catalog/catalog.ts` for categories and products, and `src/content/translations/catalog/` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
 
 The catalog vegetable photographs are illustrative CC0 assets. [Cut Broccoli](https://commons.wikimedia.org/wiki/File:Cut_Broccoli.jpg) is credited to Alabama Extension / Margaret Barse, and [Green beans in a pile](https://commons.wikimedia.org/wiki/File:Green_beans_in_a_pile.JPG) is by Jeffery Martin. Local copies were resized and converted to WebP.
 
 ## Product details
 
-All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Product formats and the enquiry text are configured in `src/content/catalog/product-details.ts`. The strawberry example sizes and detail labels live in `src/content/catalog/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
+All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Translated product labels and enquiry text live in `src/content/translations/product/`. The default strawberry sizes and cut images live in `src/content/catalog/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
 
 ## About Us
 
-The About page at `/about` and its localized equivalents uses `src/content/about.ts` for the page copy, core values, and export steps. The core-value icons traced as vector paths from the supplied masks are in `public/images/about/`.
+The About page at `/about` and its localized equivalents uses `src/content/translations/about/` for the page copy, core values, and export steps. The core-value icons traced as vector paths from the supplied masks are in `public/images/about/`.
 
 ## Contact
 
@@ -82,7 +83,7 @@ The Contact page at `/contact` and its localized equivalents offers general, exp
 
 ## Journal
 
-The localized journal and article pages use `src/content/journal.ts` for editorials, titles, and labels. Each article is pre-rendered at its own `/journal/[article]` URL in each language. Set `AMAC_SITE_URL` to the published site origin to generate absolute canonical and language alternate URLs. The three covers come from the supplied journal layouts. The IQF article uses the supplied copy, and the farm and export-partner articles are starter drafts.
+The localized journal and article pages use `src/content/translations/journal/` for editorials, titles, and labels. Each article is pre-rendered at its own `/journal/[article]` URL in each language. Set `AMAC_SITE_URL` to the published site origin to generate absolute canonical and language alternate URLs. The three covers come from the supplied journal layouts. The IQF article uses the supplied copy, and the farm and export-partner articles are starter drafts.
 
 ## Administration
 

@@ -3,17 +3,8 @@
 import { useRouter } from "next/navigation";
 import { productPath, type ProductId } from "../../content/catalog/catalog-routes";
 import type { Locale } from "../../content/locale";
+import { selectLabels } from "../../content/translations/product";
 import styles from "./product-details.module.css";
-
-const selectLabels: Record<Locale, string> = {
-  en: "Choose a product",
-  ar: "اختر المنتج",
-  fr: "Choisir un produit",
-  de: "Produkt auswählen",
-  it: "Scegli un prodotto",
-  ru: "Выберите продукт",
-  es: "Elige un producto",
-};
 
 export function ProductSwitcher({
   locale,

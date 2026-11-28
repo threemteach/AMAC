@@ -1,10 +1,5 @@
 import type { AdditionalLocale } from "./locale";
-import { homeContent as en } from "./home";
-import { fr } from "./translations/fr";
-import { de } from "./translations/de";
-import { it } from "./translations/it";
-import { ru } from "./translations/ru";
-import { es } from "./translations/es";
+import { en, internationalHomeCopies } from "./translations/home";
 
 type ProductCopy = Pick<(typeof en.featuredHarvest.products)[number], "name" | "category" | "description">;
 type StepCopy = Pick<(typeof en.journey.steps)[number], "stage" | "title" | "description">;
@@ -30,10 +25,8 @@ export type InternationalHomeCopy = {
   contactBanner: Omit<typeof en.contactBanner, "watermark">;
 };
 
-const translations = { fr, de, it, ru, es } satisfies Record<AdditionalLocale, InternationalHomeCopy>;
-
 export function getInternationalHome(locale: AdditionalLocale): typeof en {
-  const copy = translations[locale];
+  const copy = internationalHomeCopies[locale];
   const { ribbons, ...hero } = copy.hero;
   const { titles, label, actionLabel, ...collections } = copy.ingredientCollections;
 

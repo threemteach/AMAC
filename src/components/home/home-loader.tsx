@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { localeLabels, type Locale } from "../../content/locale";
-import { loadingCopy } from "../../content/loading";
+import { loadingCopy } from "../../content/translations/home";
 import styles from "./home-loader.module.css";
 
 type Phase = "loading" | "slow" | "offline" | "failed";

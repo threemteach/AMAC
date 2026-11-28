@@ -2,19 +2,9 @@ import { getBaseProducts, getCatalog } from "./catalog";
 import { productIds, type ProductId } from "./catalog-routes";
 import { getBaseHomeContent } from "../home-localized";
 import type { Locale } from "../locale";
-import { strawberryCopy } from "./strawberry";
+import { enquiryText, strawberryCopy } from "../translations/product";
 import { contentText } from "../localized-text";
 import { getCms } from "../../server/cms/store";
-
-export const enquiryText = {
-  en: { close: "Close", message: "Enquiry message", copy: "Copy message", copied: "Message copied", manual: "Select and copy the message to share it." },
-  ar: { close: "إغلاق", message: "رسالة الاستفسار", copy: "نسخ الرسالة", copied: "تم نسخ الرسالة", manual: "حدّد الرسالة وانسخها لمشاركتها." },
-  fr: { close: "Fermer", message: "Message de demande", copy: "Copier le message", copied: "Message copié", manual: "Sélectionnez et copiez le message pour le partager." },
-  de: { close: "Schließen", message: "Anfragetext", copy: "Nachricht kopieren", copied: "Nachricht kopiert", manual: "Markieren und kopieren Sie die Nachricht, um sie zu teilen." },
-  it: { close: "Chiudi", message: "Messaggio di richiesta", copy: "Copia il messaggio", copied: "Messaggio copiato", manual: "Seleziona e copia il messaggio per condividerlo." },
-  ru: { close: "Закрыть", message: "Текст запроса", copy: "Скопировать сообщение", copied: "Сообщение скопировано", manual: "Выделите и скопируйте сообщение, чтобы поделиться им." },
-  es: { close: "Cerrar", message: "Mensaje de consulta", copy: "Copiar el mensaje", copied: "Mensaje copiado", manual: "Selecciona y copia el mensaje para compartirlo." },
-} satisfies Record<Locale, { close: string; message: string; copy: string; copied: string; manual: string }>;
 
 export function getProductDetails(locale: Locale, id: ProductId) {
   const catalog = getCatalog(locale);

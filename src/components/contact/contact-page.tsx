@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { getCatalog } from "../../content/catalog/catalog";
-import { generalEnquiryPlaceholder, getContactCopy } from "../../content/contact";
+import { getContactCopy } from "../../content/contact";
+import { generalEnquiryPlaceholder } from "../../content/translations/contact";
 import { contentText } from "../../content/localized-text";
 import { getCms } from "../../server/cms/store";
 import { enquiryRecipient } from "../../server/cms/contacts";
 import type { EnquiryKind } from "../../content/enquiry-routes";
 import { contactPath, homePaths, type Locale } from "../../content/locale";
-import { enquiryText } from "../../content/catalog/product-details";
+import { enquiryText } from "../../content/translations/product";
 import { getFooterContent } from "../../content/site";
 import { ContactBanner } from "../shared/contact-banner";
 import { SiteMotion } from "../shared/site-motion";

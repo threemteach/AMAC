@@ -1,11 +1,12 @@
-import farmImage from "../../public/images/farm.png";
-import fruitsImage from "../../public/images/frozen-fruits.jpg";
-import vegetablesImage from "../../public/images/frozen-vegetables.jpg";
-import strawberriesImage from "../../public/images/frozen-strawberries.png";
-import broccoliImage from "../../public/images/frozen-broccoli.png";
-import mangoImage from "../../public/images/frozen-mango.png";
-import greenBeansImage from "../../public/images/frozen-green-beans.png";
-import storyImage from "../../public/images/our-story-field.png";
+import type { LoadingCopy, HomeMetadataCopy } from "./index";
+import farmImage from "../../../../public/images/farm.png";
+import fruitsImage from "../../../../public/images/frozen-fruits.jpg";
+import vegetablesImage from "../../../../public/images/frozen-vegetables.jpg";
+import strawberriesImage from "../../../../public/images/frozen-strawberries.png";
+import broccoliImage from "../../../../public/images/frozen-broccoli.png";
+import mangoImage from "../../../../public/images/frozen-mango.png";
+import greenBeansImage from "../../../../public/images/frozen-green-beans.png";
+import storyImage from "../../../../public/images/our-story-field.png";
 
 const brandWatermark = "/images/fields-watermark.svg";
 const transportHeading = ["The right route", "for your destination."];
@@ -205,3 +206,13 @@ export const homeContent = {
     actionLabel: "Talk to our team",
   },
 };
+
+
+export const loading: LoadingCopy = {
+  title: "Loading AMAC Group", loading: "Opening the fields…",
+  slow: "The farm image is taking a little longer.",
+  offline: "You’re offline. You can still explore the page.",
+  failed: "The farm image couldn’t load.", continue: "Continue to site", retry: "Retry",
+};
+
+export const metadata: HomeMetadataCopy = ["AMAC Group | Frozen Fruits & Vegetables", "Egyptian frozen fruits and vegetables from AMAC Group, based in Alexandria."];
