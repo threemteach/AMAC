@@ -25,6 +25,8 @@ Playwright builds the site in `.next-e2e` and starts its own server at `http://1
 
 Use `npm run test:e2e -- --headed` to watch in Chromium or `npx playwright show-report` to open the last report. On Linux, use `npx playwright install --with-deps chromium` if browser system dependencies are missing.
 
+GitHub Actions runs the production build and the full Playwright suite on Ubuntu for pull requests targeting `main`. The same workflow can also be run manually from the repository's **Actions** tab.
+
 ## Where to make changes
 
 `src/app` owns URLs and HTTP entry points. Section UI stays in `src/components`, and UI reused across sections lives in `src/components/shared`. The admin dashboard and its editors are in `src/components/admin`. Login, publishing, and image-upload handlers are in `src/server/admin`. The CMS store, schema, defaults, and image storage are in `src/server/cms`.
