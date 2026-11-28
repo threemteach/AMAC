@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCatalog } from "../../content/catalog/catalog";
-import { productsPath, productPath, type ProductId } from "../../content/catalog/catalog-routes";
-import { getHomeContent } from "../../content/home-localized";
+import { productPath, type ProductId } from "../../content/catalog/catalog-routes";
 import { homePaths, type Locale } from "../../content/locale";
 import { getProductDetails } from "../../content/catalog/product-details";
 import { ContactBanner } from "../shared/contact-banner";
@@ -11,7 +8,7 @@ import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { ProductDetails } from "./product-details";
-import { ProductSwitcher } from "./product-switcher";
+import { ProductNavigation } from "./product-navigation";
 import styles from "./product-details.module.css";
 
 export function getProductMetadata(locale: Locale, id: ProductId): Metadata {
@@ -28,24 +25,13 @@ export function getProductMetadata(locale: Locale, id: ProductId): Metadata {
 export function ProductPage({ locale, id }: { locale: Locale; id: ProductId }) {
   const product = getProductDetails(locale, id);
   if (!product) notFound();
-  const [homeLabel, productsLabel] = getHomeContent(locale).header.navigation;
-  const choices = getCatalog(locale).products.map(({ id, title }) => ({ id, title }));
 
   return (
     <>
       <SiteHeader locale={locale} view="product" slug={id} />
       <main>
         <div className={styles.container}>
-          <div className={styles.productNavigation}>
-            <nav className={styles.breadcrumb} aria-label={productsLabel}>
-              <ol>
-                <li><Link href={homePaths[locale]}>{homeLabel}</Link></li>
-                <li><Link href={productsPath(locale)}>{productsLabel}</Link></li>
-                <li aria-current="page">{product.title}</li>
-              </ol>
-            </nav>
-            <ProductSwitcher key={id} locale={locale} current={id} choices={choices} />
-          </div>
+          <ProductNavigation locale={locale} id={id} title={product.title} />
           <ProductDetails key={id} product={product} />
         </div>
         <ContactBanner locale={locale} kind="product" />

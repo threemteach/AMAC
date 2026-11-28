@@ -29,6 +29,8 @@ Use `npm run test:e2e -- --headed` to watch in Chromium or `npx playwright show-
 
 `src/app` owns URLs and HTTP entry points. Section UI stays in `src/components`, and UI reused across sections lives in `src/components/shared`. The admin dashboard and its editors are in `src/components/admin`. Login, publishing, and image-upload handlers are in `src/server/admin`. The CMS store, schema, defaults, and image storage are in `src/server/cms`.
 
+Page components assemble their sections in display order. About and Contact sections live in `src/components/about` and `src/components/contact`. Journal listing and article sections live in `src/components/journal`. In `src/components/catalog`, `catalog-browser.tsx` keeps search and filter state shared across the hero, category cards, and results. `product-details.tsx` keeps the selected cut and size shared across the gallery, enquiry dialog, and specifications.
+
 | File | Purpose |
 | --- | --- |
 | `src/components/site/site-footer.tsx` | Footer branding, contact placeholders, and design and development credit. |

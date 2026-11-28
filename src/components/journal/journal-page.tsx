@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getJournal } from "../../content/journal";
 import { journalPath, type JournalArticle } from "../../content/journal-routes";
@@ -9,6 +7,9 @@ import { ContactBanner } from "../shared/contact-banner";
 import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
+import { JournalArticleBody } from "./journal-article-body";
+import { JournalArticleHeader } from "./journal-article-header";
+import { JournalHero } from "./journal-hero";
 import { JournalList } from "./journal-list";
 import styles from "./journal.module.css";
 
@@ -43,27 +44,12 @@ export function JournalPage({ locale, id }: { locale: Locale; id?: JournalArticl
       <main>
         {article ? (
           <article className={styles.article}>
-            <Link className={styles.back} href={journalPath(locale)}>
-              <span aria-hidden="true">{locale === "ar" ? "→" : "←"}</span> {copy.back}
-            </Link>
-            <p className={styles.eyebrow}>{copy.tag}</p>
-            <h1 data-reveal>{article.title}</h1>
-            <div className={styles.articlePhoto} data-reveal>
-              <Image src={article.image} alt={article.imageAlt} fill sizes="(max-width: 850px) 92vw, 790px" preload />
-            </div>
-            <div className={styles.articleBody}>
-              {article.sections.map(([heading, paragraph]) => (
-                <section key={heading} data-reveal><h2>{heading}</h2><p>{paragraph}</p></section>
-              ))}
-            </div>
+            <JournalArticleHeader locale={locale} copy={copy} article={article} />
+            <JournalArticleBody sections={article.sections} />
           </article>
         ) : (
           <>
-            <section className={styles.hero}>
-              <p className={styles.eyebrow}>AMAC GROUP</p>
-              <h1 data-reveal>{copy.title}</h1>
-              <p className={styles.intro} data-reveal>{copy.intro}</p>
-            </section>
+            <JournalHero copy={copy} />
             <JournalList locale={locale} journal={journal} />
           </>
         )}
