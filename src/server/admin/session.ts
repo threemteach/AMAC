@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { NextRequest } from "next/server";
-import { isAdminConfigured, issueSession, sessionCookie, sessionDuration, validPassword } from "./auth";
+import { isAdminConfigured, issueSession, revokeSession, sessionCookie, sessionDuration, validPassword } from "./auth";
 import { boundedBody, cookieOptions, reply } from "./http";
 
 const loginWindow = 15 * 60 * 1000;
@@ -24,6 +24,7 @@ export async function signIn(request: NextRequest) {
 }
 
 export function signOut(request: NextRequest) {
+  revokeSession(request.cookies.get(sessionCookie)?.value);
   const response = reply({ signedOut: true });
   response.cookies.set(sessionCookie, "", cookieOptions(request, 0));
   return response;
