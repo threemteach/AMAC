@@ -105,3 +105,5 @@ export function getCatalog(locale: Locale) {
     products,
   };
 }
+
+export type CatalogData = ReturnType<typeof getCatalog>;

@@ -52,3 +52,5 @@ export function getProductDetails(locale: Locale, id: ProductId) {
     enquiry: enquiryText[locale],
   };
 }
+
+export type ProductDetail = NonNullable<ReturnType<typeof getProductDetails>>;
