@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getAboutCopy } from "../../content/about";
 import { aboutPath, homePaths, type Locale } from "../../content/locale";
-import { ContactBanner } from "../home/contact-banner";
-import { bricolage } from "../home/home-fonts";
-import { HomeMotion } from "../home/home-motion";
-import { OurStory } from "../home/our-story";
-import { QualityConfidence } from "../home/quality-confidence";
+import { ContactBanner } from "../shared/contact-banner";
+import { bricolage } from "../shared/site-fonts";
+import { SiteMotion } from "../shared/site-motion";
+import { OurStory } from "../shared/our-story";
+import { QualityConfidence } from "../shared/quality-confidence";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { CoreValues } from "./core-values";
@@ -70,7 +70,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
         />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion />
+      <SiteMotion />
     </>
   );
 }

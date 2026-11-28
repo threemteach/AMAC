@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { getProductDetails } from "../../content/product-details";
+import type { getProductDetails } from "../../content/catalog/product-details";
 import styles from "./product-details.module.css";
 
 export function ProductDetails({ product }: { product: NonNullable<ReturnType<typeof getProductDetails>> }) {

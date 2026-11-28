@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
 import { localeLabels, type Locale } from "../../content/locale";
 import { enquiryPath } from "../../content/enquiry-routes";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "./site-fonts";
 import styles from "./quality-confidence.module.css";
 
 const logoRepeats = 8;

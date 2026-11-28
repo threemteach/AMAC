@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productsPath } from "../../content/catalog-routes";
+import { productsPath } from "../../content/catalog/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
 import { HomeLoader } from "./home-loader";
 import { HeroRibbons } from "./hero-ribbons";
-import { bricolage } from "./home-fonts";
+import { bricolage } from "../shared/site-fonts";
 import styles from "./home-hero.module.css";
 
 export function HomeHero({ locale }: { locale: Locale }) {

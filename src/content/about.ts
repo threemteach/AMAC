@@ -1,5 +1,6 @@
 import type { Locale } from "./locale";
-import { contentText, getCms, lines } from "./cms-store";
+import { contentText, lines } from "./localized-text";
+import { getCms } from "../server/cms/store";
 
 type Card = [title: string, description: string];
 

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCatalog } from "../../content/catalog";
-import { productsPath, productPath, type ProductId } from "../../content/catalog-routes";
+import { getCatalog } from "../../content/catalog/catalog";
+import { productsPath, productPath, type ProductId } from "../../content/catalog/catalog-routes";
 import { getHomeContent } from "../../content/home-localized";
 import { homePaths, type Locale } from "../../content/locale";
-import { getProductDetails } from "../../content/product-details";
-import { ContactBanner } from "../home/contact-banner";
-import { HomeMotion } from "../home/home-motion";
+import { getProductDetails } from "../../content/catalog/product-details";
+import { ContactBanner } from "../shared/contact-banner";
+import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { ProductDetails } from "./product-details";
@@ -51,7 +51,7 @@ export function ProductPage({ locale, id }: { locale: Locale; id: ProductId }) {
         <ContactBanner locale={locale} kind="product" />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion key={id} />
+      <SiteMotion key={id} />
     </>
   );
 }

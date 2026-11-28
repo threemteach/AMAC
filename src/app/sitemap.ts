@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getCatalog } from "../content/catalog";
-import { productPath, productsPath } from "../content/catalog-routes";
+import { getCatalog } from "../content/catalog/catalog";
+import { productPath, productsPath } from "../content/catalog/catalog-routes";
 import { getJournal } from "../content/journal";
 import { journalPath } from "../content/journal-routes";
 import { aboutPath, contactPath, homePaths, type Locale } from "../content/locale";

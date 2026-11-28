@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getCatalog } from "../../content/catalog";
+import { getCatalog } from "../../content/catalog/catalog";
 import { generalEnquiryPlaceholder, getContactCopy } from "../../content/contact";
-import { contentText, enquiryRecipient, getCms } from "../../content/cms-store";
+import { contentText } from "../../content/localized-text";
+import { getCms } from "../../server/cms/store";
+import { enquiryRecipient } from "../../server/cms/contacts";
 import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import { contactPath, homePaths, type Locale } from "../../content/locale";
-import { enquiryText } from "../../content/product-details";
+import { enquiryText } from "../../content/catalog/product-details";
 import { getFooterContent } from "../../content/site";
-import { ContactBanner } from "../home/contact-banner";
-import { HomeMotion } from "../home/home-motion";
+import { ContactBanner } from "../shared/contact-banner";
+import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { ContactEnquiry } from "./contact-enquiry";
@@ -96,7 +98,7 @@ export function ContactPage({ locale, kind }: { locale: Locale; kind: EnquiryKin
         <ContactBanner locale={locale} />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion />
+      <SiteMotion />
     </>
   );
 }

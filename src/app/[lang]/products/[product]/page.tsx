@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProductMetadata, ProductPage } from "../../../../components/catalog/product-page";
-import { productIds } from "../../../../content/catalog-routes";
+import { productIds } from "../../../../content/catalog/catalog-routes";
 import { additionalLocales } from "../../../../content/locale";
 
 export function generateStaticParams() {

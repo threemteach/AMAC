@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productsPath } from "../../content/catalog-routes";
+import { productsPath } from "../../content/catalog/catalog-routes";
 import { enquiryPath } from "../../content/enquiry-routes";
-import { contentText, enquiryRecipient, getCms, lines } from "../../content/cms-store";
+import { contentText, lines } from "../../content/localized-text";
+import { getCms } from "../../server/cms/store";
+import { enquiryRecipient } from "../../server/cms/contacts";
 import { journalPath } from "../../content/journal-routes";
 import { aboutPath, contactPath, localeLabels, type Locale } from "../../content/locale";
 import { getFooterContent } from "../../content/site";

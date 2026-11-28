@@ -1,9 +1,10 @@
 import type { StaticImageData } from "next/image";
-import { getBaseHomeContent, getHomeContent } from "./home-localized";
+import { getBaseHomeContent, getHomeContent } from "../home-localized";
 import { catalogCopy } from "./catalog-copy";
 import { categoryIds, type Category, type ProductId } from "./catalog-routes";
-import { languageNames, type Locale } from "./locale";
-import { contentText, getCms } from "./cms-store";
+import { languageNames, type Locale } from "../locale";
+import { contentText } from "../localized-text";
+import { getCms } from "../../server/cms/store";
 import { strawberryCopy, strawberryCuts, strawberrySizes } from "./strawberry";
 
 type CatalogProduct = {

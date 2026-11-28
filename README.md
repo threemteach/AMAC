@@ -13,25 +13,39 @@ npm run dev
 
 Open `http://localhost:3000/` for English. The language picker also links to Arabic (`/ar`), French (`/fr`), German (`/de`), Italian (`/it`), Russian (`/ru`), and Spanish (`/es`). Use `npm run build` for the production build and `npm run typecheck` for TypeScript checks.
 
+## End-to-end tests
+
+```sh
+npm ci
+npx playwright install chromium
+npm run test:e2e
+```
+
+Playwright builds the site in `.next-e2e` and starts its own server at `http://127.0.0.1:3217`. Keep that port free. The tests use fresh test data and a test admin password, so the live content and local login settings are unaffected. They cover admin login and logout, image upload validation and WebP previews, article publishing, and combined product filters.
+
+Use `npm run test:e2e -- --headed` to watch in Chromium or `npx playwright show-report` to open the last report. On Linux, use `npx playwright install --with-deps chromium` if browser system dependencies are missing.
+
 ## Where to make changes
+
+`src/app` owns URLs and HTTP entry points. Section UI stays in `src/components`, and UI reused across sections lives in `src/components/shared`. The admin dashboard and its editors are in `src/components/admin`. Login, publishing, and image-upload handlers are in `src/server/admin`. The CMS store, schema, defaults, and image storage are in `src/server/cms`.
 
 | File | Purpose |
 | --- | --- |
 | `src/components/site/site-footer.tsx` | Footer branding, contact placeholders, and design and development credit. |
 | `src/content/site.ts` | Footer labels and 3mtechs credit shared with the mobile sidebar. |
-| `src/components/home-page.tsx` | Shared section order for the English and Arabic home pages. |
+| `src/components/home/home-page.tsx` | Shared section order for the English and Arabic home pages. |
 | `src/components/site/site-header.tsx` | Announcement, navigation, logo, and quote action. |
 | `src/components/home/home-hero.tsx` | Farm image, heading, description, and calls to action. |
 | `src/components/home/hero-ribbons.tsx` | The two decorative strips and their repeating labels. CSS scrolls them in opposite directions and pauses movement when reduced motion is enabled. |
 | `src/components/home/fields-intro.tsx` | Product introduction, decorative SVG, and Discover the range action. |
 | `src/components/home/ingredient-collections.tsx` | Responsive Fruits and Vegetables cards and their collection copy. |
 | `src/components/home/featured-harvest.tsx` | Four numbered featured products and the catalog action. |
-| `src/components/home/quality-confidence.tsx` | Quality copy, scrolling reference marks, and documentation action. |
-| `src/components/home/our-story.tsx` | Story image, numbered company overview, and About us action. |
+| `src/components/shared/quality-confidence.tsx` | Quality copy, scrolling reference marks, and documentation action. |
+| `src/components/shared/our-story.tsx` | Story image, numbered company overview, and About us action. |
 | `src/components/home/considered-journey.tsx` | Four stages from sourcing to delivery and their supplied SVG icons. |
 | `src/components/home/factory-process.tsx` | Four factory media frames and the supplied fruit cover. |
 | `src/components/home/shipping-routes.tsx` | Road, air, and sea shipping cards with supplied SVGs. |
-| `src/components/home/contact-banner.tsx` | Bottom contact banner and its brand watermark. |
+| `src/components/shared/contact-banner.tsx` | Bottom contact banner and its brand watermark. |
 | `src/content/home.ts` | English home page copy and shared asset references. |
 | `src/content/home-localized.ts` | Arabic home page copy and locale selection. |
 | `src/content/translations/` | French, German, Italian, Russian, and Spanish home page copy. |
@@ -48,13 +62,13 @@ Discuss your shipment and Talk to our team can be linked when their contact dest
 
 ## Product catalog
 
-The catalog at `/products` and its localized equivalents uses `src/content/catalog.ts` for categories and products, and `src/content/catalog-copy.ts` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
+The catalog at `/products` and its localized equivalents uses `src/content/catalog/catalog.ts` for categories and products, and `src/content/catalog/catalog-copy.ts` for localized labels. Category links can preselect a filter with `?category=fruits` or `?category=vegetables`.
 
 The catalog vegetable photographs are illustrative CC0 assets. [Cut Broccoli](https://commons.wikimedia.org/wiki/File:Cut_Broccoli.jpg) is credited to Alabama Extension / Margaret Barse, and [Green beans in a pile](https://commons.wikimedia.org/wiki/File:Green_beans_in_a_pile.JPG) is by Jeffery Martin. Local copies were resized and converted to WebP.
 
 ## Product details
 
-All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Product formats and the enquiry text are configured in `src/content/product-details.ts`. The strawberry example sizes and detail labels live in `src/content/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
+All catalog items use the shared details template under `/products/[product]` and its localized equivalents. Product formats and the enquiry text are configured in `src/content/catalog/product-details.ts`. The strawberry example sizes and detail labels live in `src/content/catalog/strawberry.ts`. The enquiry button prepares a message that visitors can edit and copy. The whole and halved examples are illustrative CC0 photos from Wikimedia Commons. [RedStrawberries](https://commons.wikimedia.org/wiki/File:RedStrawberries.jpg) is by Hastibozorgi, and [Strawberry Half](https://commons.wikimedia.org/wiki/File:Strawberry_Half.jpg) is by 5snake5. Local copies were resized and converted to WebP. The halved strawberry image was cropped.
 
 ## About Us
 

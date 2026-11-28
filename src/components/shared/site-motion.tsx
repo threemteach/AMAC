@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export function HomeMotion() {
+export function SiteMotion() {
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (preference.matches || !("IntersectionObserver" in window)) return;

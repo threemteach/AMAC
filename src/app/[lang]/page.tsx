@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { HomePage } from "../../components/home-page";
+import { HomePage } from "../../components/home/home-page";
 import { additionalLocales } from "../../content/locale";
 
 export function generateStaticParams() {

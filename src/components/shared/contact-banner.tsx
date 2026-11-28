@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
 import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import type { Locale } from "../../content/locale";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "./site-fonts";
 import styles from "./contact-banner.module.css";
 
 export function ContactBanner({ locale, message, kind = "general" }: {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHomeContent } from "../../content/home-localized";
 import { aboutPath, type Locale } from "../../content/locale";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "./site-fonts";
 import styles from "./our-story.module.css";
 
 export function OurStory({ locale, actionHref = aboutPath(locale) }: { locale: Locale; actionHref?: string }) {

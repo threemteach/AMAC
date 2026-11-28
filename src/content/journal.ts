@@ -1,6 +1,7 @@
 import { journalIds } from "./journal-routes";
 import { languageNames, type Locale } from "./locale";
-import { contentText, getCms } from "./cms-store";
+import { contentText } from "./localized-text";
+import { getCms } from "../server/cms/store";
 
 type ArticleCopy = { title: string; sections: [string, string][] };
 

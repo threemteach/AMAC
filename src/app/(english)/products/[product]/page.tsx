@@ -1,5 +1,5 @@
 import { getProductMetadata, ProductPage } from "../../../../components/catalog/product-page";
-import { productIds } from "../../../../content/catalog-routes";
+import { productIds } from "../../../../content/catalog/catalog-routes";
 
 export function generateStaticParams() {
   return productIds.map((product) => ({ product }));

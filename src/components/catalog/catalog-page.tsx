@@ -1,8 +1,8 @@
-import { getCatalog } from "../../content/catalog";
-import { readCategory } from "../../content/catalog-routes";
+import { getCatalog } from "../../content/catalog/catalog";
+import { readCategory } from "../../content/catalog/catalog-routes";
 import type { Locale } from "../../content/locale";
-import { ContactBanner } from "../home/contact-banner";
-import { HomeMotion } from "../home/home-motion";
+import { ContactBanner } from "../shared/contact-banner";
+import { SiteMotion } from "../shared/site-motion";
 import { SiteFooter } from "../site/site-footer";
 import { SiteHeader } from "../site/site-header";
 import { CatalogBrowser } from "./catalog-browser";
@@ -16,7 +16,7 @@ export function CatalogPage({ locale, category }: { locale: Locale; category: st
         <ContactBanner locale={locale} kind="product" />
       </main>
       <SiteFooter locale={locale} />
-      <HomeMotion />
+      <SiteMotion />
     </>
   );
 }

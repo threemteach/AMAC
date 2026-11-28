@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { productsPath, productPath, type SiteView } from "../../content/catalog-routes";
+import { productsPath, productPath, type SiteView } from "../../content/catalog/catalog-routes";
 import { enquiryPath, type EnquiryKind } from "../../content/enquiry-routes";
 import { journalPath } from "../../content/journal-routes";
 import { aboutPath, contactPath, homePaths, languageNames, localeLabels, type Locale } from "../../content/locale";

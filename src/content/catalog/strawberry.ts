@@ -1,4 +1,4 @@
-import type { Locale } from "./locale";
+import type { Locale } from "../locale";
 
 export const strawberryCuts = [
   { id: "whole", image: "/images/catalog/strawberries/whole.webp", position: "center" },

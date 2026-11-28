@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getHomeContent } from "../../content/home-localized";
 import type { Locale } from "../../content/locale";
-import { bricolage, myriadPro } from "./home-fonts";
+import { bricolage, myriadPro } from "../shared/site-fonts";
 import styles from "./shipping-routes.module.css";
 
 export function ShippingRoutes({ locale }: { locale: Locale }) {
