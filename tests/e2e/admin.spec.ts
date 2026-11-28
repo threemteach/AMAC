@@ -26,7 +26,7 @@ async function sampleImage(width: number, height: number) {
   };
 }
 
-test("admin login rejects the wrong password and logout closes the session", async ({ page }) => {
+test("admin login uses a secure cookie and logout revokes it on the server", async ({ page, playwright }) => {
   const saveWithoutSession = () => page.request.put("/admin/api", { headers: { Origin: origin }, data: {} });
   expect((await saveWithoutSession()).status()).toBe(401);
 
@@ -36,9 +36,23 @@ test("admin login rejects the wrong password and logout closes the session", asy
   await enterPassword(page, adminPassword);
   await expect(page.getByRole("heading", { name: "نظرة عامة" })).toBeVisible();
 
-  await page.getByRole("button", { name: "تسجيل الخروج" }).click();
-  await expect(page.getByLabel("كلمة مرور الإدارة")).toBeVisible();
-  expect((await saveWithoutSession()).status()).toBe(401);
+  const session = (await page.context().cookies()).find(({ name }) => name === "amac-admin");
+  expect(session).toMatchObject({ secure: true, httpOnly: true, sameSite: "Strict", path: "/admin" });
+  if (!session) throw new Error("The admin session cookie is missing.");
+
+  const replay = await playwright.request.newContext({
+    baseURL: origin,
+    extraHTTPHeaders: { Origin: origin, Cookie: `${session.name}=${session.value}` },
+  });
+  try {
+    expect((await replay.put("/admin/api", { data: {} })).status()).toBe(422);
+    await page.getByRole("button", { name: "تسجيل الخروج" }).click();
+    await expect(page.getByLabel("كلمة مرور الإدارة")).toBeVisible();
+    expect((await saveWithoutSession()).status()).toBe(401);
+    expect((await replay.put("/admin/api", { data: {} })).status()).toBe(401);
+  } finally {
+    await replay.dispose();
+  }
 });
 
 test("image upload checks the dimensions and serves a WebP preview", async ({ page }) => {

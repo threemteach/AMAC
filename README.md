@@ -89,6 +89,10 @@ The localized journal and article pages use `src/content/translations/journal/` 
 
 Open `/admin`. Set a strong `AMAC_ADMIN_PASSWORD` of at least 16 characters in `.env.local` for development or as a server secret in production. Protect the production deployment with HTTPS. The password is for one shared administrator account. Editing and uploads require a signed administration session.
 
+Production cookies require HTTPS. The dashboard uses a fresh CSP nonce per page response. Public pages keep their static rendering and allow Next.js inline bootstrap scripts. Leave HTTPS redirection enabled on the hosting proxy.
+
+Active sessions are stored in the `sessions` subdirectory of `AMAC_CONTENT_DIR`. Signing out revokes the session immediately. Keep this storage writable by the app and outside the public web root. Users with sessions from before this change will need to sign in again.
+
 For loopback-only development, a shorter password can be used with a separate random `AMAC_ADMIN_DEV_SESSION_SECRET` of at least 32 characters. This option is enabled only by the development server.
 
 The first visit loads the existing catalog, journal posts, translations, and image references. Edits stay in the editor until **Publish changes**. Unpublished products and articles stay in the dashboard. An article requires its English title, text, and a cover to publish. Each additional translation appears once that language has both a title and text. Product and article slugs become their stable URLs.

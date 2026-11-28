@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import { activateSession, deactivateSession, isSessionActive } from "./session-store";
 
 export const sessionCookie = "amac-admin";
 export const sessionDuration = 8 * 60 * 60;
@@ -33,14 +34,27 @@ function signature(value: string, secret: string) {
 export function issueSession() {
   const secret = credentials()?.secret;
   if (!secret) throw new Error("Admin is disabled.");
-  const payload = (Math.floor(Date.now() / 1000) + sessionDuration) + "." + randomBytes(24).toString("base64url");
+  const now = Math.floor(Date.now() / 1000);
+  const payload = (now + sessionDuration) + "." + randomBytes(24).toString("base64url");
+  activateSession(payload, now);
   return payload + "." + signature(payload, secret);
 }
 
-export function validSession(token: string | undefined) {
+function verifiedSessionId(token: string | undefined) {
   const secret = credentials()?.secret;
-  if (!secret || !token || !/^\d{10}\.[A-Za-z0-9_-]{32}\.[A-Za-z0-9_-]{43}$/.test(token)) return false;
+  if (!secret || !token || !/^\d{10}\.[A-Za-z0-9_-]{32}\.[A-Za-z0-9_-]{43}$/.test(token)) return;
   const [expiry, nonce, signed] = token.split(".");
-  const expected = signature(expiry + "." + nonce, secret);
-  return Number(expiry) > Date.now() / 1000 && timingSafeEqual(Buffer.from(signed), Buffer.from(expected));
+  const id = expiry + "." + nonce;
+  if (Number(expiry) <= Date.now() / 1000) return;
+  if (timingSafeEqual(Buffer.from(signed), Buffer.from(signature(id, secret)))) return id;
+}
+
+export function validSession(token: string | undefined) {
+  const id = verifiedSessionId(token);
+  return id !== undefined && isSessionActive(id);
+}
+
+export function revokeSession(token: string | undefined) {
+  const id = verifiedSessionId(token);
+  if (id !== undefined) deactivateSession(id);
 }

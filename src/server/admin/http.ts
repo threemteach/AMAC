@@ -46,6 +46,7 @@ export function authorized(request: NextRequest) {
 export function cookieOptions(request: NextRequest, maxAge: number) {
   return {
     httpOnly: true, sameSite: "strict" as const, path: "/admin",
-    secure: request.headers.get("origin")?.startsWith("https://") ?? true, maxAge,
+    secure: process.env.NODE_ENV === "production" || request.headers.get("origin")?.startsWith("https://") === true,
+    maxAge,
   };
 }
